@@ -91,7 +91,8 @@ export default function Navbar() {
               {navLinks.map((link) => {
                 const Icon = link.icon;
                 const isActive = activeSection === link.href.replace('#', '');
-                const showIcons = !scrolled; // icons visible only when NOT scrolled
+                const showIcons = !scrolled; // icons + text visible only at top
+
                 return (
                   <a
                     key={link.label}
@@ -100,23 +101,18 @@ export default function Navbar() {
                     className={`relative flex flex-col items-center gap-0.5 px-4
                       rounded-xl font-semibold text-xs uppercase tracking-wider
                       transition-all duration-300 group overflow-hidden
-                      ${showIcons ? 'py-2' : 'py-2.5'}
+                      ${showIcons ? 'py-2 opacity-100 max-w-[80px]' : 'py-0 opacity-0 max-w-0 px-0 pointer-events-none'}
                       ${isActive
                         ? 'text-primary bg-primary/8'
                         : 'text-gray-600 hover:text-primary hover:bg-primary/5'
                       }`}
                   >
-                    {/* Active background glow */}
                     {isActive && (
                       <span className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent rounded-xl" />
                     )}
 
-                    {/* Icon — visible only when at top (not scrolled) */}
-                    <span className={`relative z-10 transition-all duration-300 overflow-hidden
-                      ${showIcons
-                        ? 'max-h-6 opacity-100 mb-0.5'
-                        : 'max-h-0 opacity-0 mb-0'
-                      }
+                    {/* Icon */}
+                    <span className={`relative z-10 transition-all duration-300
                       ${isActive
                         ? 'text-primary scale-110'
                         : 'text-gray-400 group-hover:text-primary group-hover:scale-110 group-hover:-translate-y-0.5'
@@ -125,14 +121,11 @@ export default function Navbar() {
                     </span>
 
                     {/* Label */}
-                    <span className="relative z-10 transition-colors duration-200">
-                      {link.label}
-                    </span>
+                    <span className="relative z-10">{link.label}</span>
 
-                    {/* Active gold dot indicator */}
+                    {/* Active dot */}
                     {isActive && (
-                      <span className="absolute bottom-0.5 left-1/2 -translate-x-1/2
-                        w-1 h-1 bg-gold rounded-full" />
+                      <span className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 bg-gold rounded-full" />
                     )}
 
                     {/* Hover underline */}
