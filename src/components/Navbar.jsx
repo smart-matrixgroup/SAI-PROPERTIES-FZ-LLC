@@ -91,14 +91,16 @@ export default function Navbar() {
               {navLinks.map((link) => {
                 const Icon = link.icon;
                 const isActive = activeSection === link.href.replace('#', '');
+                const showIcons = !scrolled; // icons visible only when NOT scrolled
                 return (
                   <a
                     key={link.label}
                     href={link.href}
                     onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
-                    className={`relative flex flex-col items-center gap-0.5 px-4 py-2
+                    className={`relative flex flex-col items-center gap-0.5 px-4
                       rounded-xl font-semibold text-xs uppercase tracking-wider
                       transition-all duration-300 group overflow-hidden
+                      ${showIcons ? 'py-2' : 'py-2.5'}
                       ${isActive
                         ? 'text-primary bg-primary/8'
                         : 'text-gray-600 hover:text-primary hover:bg-primary/5'
@@ -109,8 +111,12 @@ export default function Navbar() {
                       <span className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent rounded-xl" />
                     )}
 
-                    {/* Icon with bounce on active */}
-                    <span className={`relative z-10 transition-all duration-300
+                    {/* Icon — visible only when at top (not scrolled) */}
+                    <span className={`relative z-10 transition-all duration-300 overflow-hidden
+                      ${showIcons
+                        ? 'max-h-6 opacity-100 mb-0.5'
+                        : 'max-h-0 opacity-0 mb-0'
+                      }
                       ${isActive
                         ? 'text-primary scale-110'
                         : 'text-gray-400 group-hover:text-primary group-hover:scale-110 group-hover:-translate-y-0.5'
