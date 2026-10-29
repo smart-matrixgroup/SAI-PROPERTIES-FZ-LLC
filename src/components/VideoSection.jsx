@@ -36,9 +36,8 @@ export default function VideoSection() {
   };
 
   return (
-    <section ref={sectionRef} className="py-20 md:py-28 bg-primary-dark">
+    <section ref={sectionRef} className="py-20 md:py-28 bg-primary-dark overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
           {/* Left: Text */}
@@ -50,8 +49,8 @@ export default function VideoSection() {
             </h2>
             <div className="gold-divider mb-6" />
             <p className="text-white/70 leading-relaxed mb-6">
-              Step inside our premium properties and discover what makes SAI Properties 
-              FZ-LLC the preferred choice for discerning buyers and investors across UAE 
+              Step inside our premium properties and discover what makes SAI Properties
+              FZ-LLC the preferred choice for discerning buyers and investors across UAE
               and global markets.
             </p>
             <ul className="space-y-3">
@@ -62,7 +61,7 @@ export default function VideoSection() {
                 'Off-plan projects with flexible payment plans',
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-3 text-white/80 text-sm">
-                  <span className="w-5 h-5 bg-gold rounded-full flex items-center justify-center flex-shrink-0">
+                  <span className="w-5 h-5 bg-gold rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
                     <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
                     </svg>
@@ -73,51 +72,46 @@ export default function VideoSection() {
             </ul>
           </div>
 
-          {/* Right: Video player */}
+          {/* Right: Video player — note text REMOVED */}
           <div className={`transition-all duration-700 delay-200 ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-video bg-gray-900 cursor-pointer group"
-              onClick={handlePlay}>
-              {/* Video element - replace src with actual video file if available */}
+            <div
+              className="relative rounded-2xl overflow-hidden shadow-2xl aspect-video bg-gray-900 cursor-pointer group ring-1 ring-white/10"
+              onClick={handlePlay}
+            >
               <video
                 ref={videoRef}
                 className="w-full h-full object-cover"
                 loop
                 muted
                 playsInline
-                poster="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&q=80"
+                poster="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=900&q=85"
               >
-                {/* Add your video file here: <source src="/assets/sai-properties-tour.mp4" type="video/mp4" /> */}
-                {/* Fallback image shown via poster attribute */}
+                {/* Place your video: <source src="/sai-tour.mp4" type="video/mp4" /> */}
               </video>
 
-              {/* Overlay */}
               {showOverlay && (
-                <div className="absolute inset-0 bg-primary/50 flex flex-col items-center justify-center">
-                  <div className="text-white group-hover:scale-110 transition-transform duration-300">
-                    <MdPlayCircle size={72} className="text-gold drop-shadow-lg" />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/70 via-primary/30 to-transparent
+                  flex flex-col items-center justify-center">
+                  <div className="group-hover:scale-110 transition-transform duration-300">
+                    <MdPlayCircle size={80} className="text-gold drop-shadow-2xl" />
                   </div>
-                  <p className="text-white font-semibold mt-3 text-sm">Watch Property Tour</p>
+                  <p className="text-white font-bold mt-3 text-base tracking-wide">Watch Property Tour</p>
                 </div>
               )}
 
-              {/* Pause button when playing */}
               {playing && (
                 <button
                   className="absolute bottom-4 right-4 text-white/70 hover:text-white transition-colors"
-                  onClick={handlePlay}
+                  onClick={(e) => { e.stopPropagation(); handlePlay(); }}
                 >
-                  <MdPauseCircle size={36} />
+                  <MdPauseCircle size={38} />
                 </button>
               )}
             </div>
-
-            {/* Note for video upload */}
-            <p className="text-white/40 text-xs text-center mt-3">
-              Add your property tour video to <code className="text-gold/60">src/assets/</code> and update the video source
-            </p>
+            {/* Note text completely removed as requested */}
           </div>
-        </div>
 
+        </div>
       </div>
     </section>
   );

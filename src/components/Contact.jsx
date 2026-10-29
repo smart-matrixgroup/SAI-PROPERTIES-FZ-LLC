@@ -149,7 +149,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <p className="font-heading font-bold text-white text-base">K. Vaikunthan</p>
-                      <p className="text-gold text-xs font-semibold uppercase tracking-wider">Manager</p>
+                      <p className="text-gold text-xs font-semibold uppercase tracking-wider">Chief Officer (CO)</p>
                       <p className="text-white/40 text-xs mt-0.5">SAI Properties FZ-LLC</p>
                     </div>
                   </div>

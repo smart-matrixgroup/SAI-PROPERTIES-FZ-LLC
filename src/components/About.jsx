@@ -103,7 +103,7 @@ export default function About() {
               </div>
               <div className="flex-1">
                 <p className="font-heading font-bold text-primary-dark">K. Vaikunthan</p>
-                <p className="text-gold text-xs font-bold uppercase tracking-wider">Manager</p>
+                <p className="text-gold text-xs font-bold uppercase tracking-wider">Chief Officer (CO)</p>
                 <p className="text-gray-400 text-xs mt-0.5">SAI Properties FZ-LLC · Dubai, UAE</p>
               </div>
               <FaAward className="text-gold/40 group-hover:text-gold transition-colors duration-300 flex-shrink-0" size={28} />
