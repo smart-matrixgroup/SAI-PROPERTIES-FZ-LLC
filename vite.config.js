@@ -4,5 +4,5 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/sai-properties1/',
+  base: '/SAI-PROPERTIES-FZ-LLC/',
 })
