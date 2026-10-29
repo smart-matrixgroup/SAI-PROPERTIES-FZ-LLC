@@ -1,12 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 260" width="220" height="260">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
   <defs>
-    <!-- Sky gradient inside circle -->
     <radialGradient id="skyG" cx="50%" cy="35%" r="65%">
       <stop offset="0%" stop-color="#e8f4ff"/>
       <stop offset="50%" stop-color="#c3dffe"/>
       <stop offset="100%" stop-color="#93c5fd"/>
     </radialGradient>
-    <!-- Building gradients -->
     <linearGradient id="bG1" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#1e3a8a"/>
       <stop offset="100%" stop-color="#1d4ed8"/>
@@ -15,97 +13,77 @@
       <stop offset="0%" stop-color="#1d4ed8"/>
       <stop offset="100%" stop-color="#3b82f6"/>
     </linearGradient>
-    <!-- Circle border gradient -->
     <linearGradient id="borderG" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#1e40af"/>
-      <stop offset="50%" stop-color="#3b82f6"/>
+      <stop offset="45%" stop-color="#60a5fa"/>
       <stop offset="100%" stop-color="#1e3a8a"/>
     </linearGradient>
-    <!-- Clip to circle -->
     <clipPath id="cClip">
-      <circle cx="110" cy="105" r="96"/>
+      <circle cx="100" cy="100" r="92"/>
     </clipPath>
   </defs>
 
-  <!-- ── Outer glow ring ── -->
-  <circle cx="110" cy="105" r="102" fill="none" stroke="#93c5fd" stroke-width="1.5" opacity="0.4"/>
+  <!-- Outer glow -->
+  <circle cx="100" cy="100" r="97" fill="none" stroke="#93c5fd" stroke-width="1.2" opacity="0.5"/>
 
-  <!-- ── Circle background ── -->
-  <circle cx="110" cy="105" r="96" fill="url(#skyG)"/>
+  <!-- Circle background -->
+  <circle cx="100" cy="100" r="92" fill="url(#skyG)"/>
 
-  <!-- ── Buildings (clipped) ── -->
+  <!-- Buildings clipped to circle -->
   <g clip-path="url(#cClip)">
 
     <!-- Water base -->
-    <rect x="14" y="168" width="192" height="40" fill="#60a5fa" opacity="0.25"/>
+    <rect x="8" y="158" width="184" height="42" fill="#60a5fa" opacity="0.2"/>
 
-    <!-- Far buildings (light) -->
-    <rect x="20"  y="128" width="12" height="42" rx="1" fill="#3b82f6" opacity="0.4"/>
-    <rect x="34"  y="118" width="10" height="52" rx="1" fill="#2563eb" opacity="0.4"/>
-    <rect x="174" y="122" width="12" height="48" rx="1" fill="#3b82f6" opacity="0.4"/>
-    <rect x="188" y="115" width="10" height="55" rx="1" fill="#2563eb" opacity="0.4"/>
+    <!-- Far buildings -->
+    <rect x="12"  y="120" width="11" height="48" rx="1" fill="#3b82f6" opacity="0.35"/>
+    <rect x="25"  y="110" width="9"  height="58" rx="1" fill="#2563eb" opacity="0.35"/>
+    <rect x="162" y="115" width="11" height="53" rx="1" fill="#3b82f6" opacity="0.35"/>
+    <rect x="175" y="108" width="9"  height="60" rx="1" fill="#2563eb" opacity="0.35"/>
 
     <!-- Left cluster -->
-    <rect x="26"  y="138" width="18" height="32" rx="2" fill="url(#bG1)"/>
-    <rect x="46"  y="128" width="14" height="42" rx="2" fill="url(#bG2)"/>
+    <rect x="18"  y="130" width="16" height="38" rx="2" fill="url(#bG1)"/>
+    <rect x="36"  y="120" width="13" height="48" rx="2" fill="url(#bG2)"/>
 
     <!-- Left curved tower -->
-    <path d="M64 170 L68 118 Q75 108 82 118 L86 170Z" fill="url(#bG1)"/>
-    <path d="M68 148 Q75 143 82 148" stroke="#93c5fd" stroke-width="0.8" fill="none" opacity="0.6"/>
-    <path d="M68 136 Q75 131 82 136" stroke="#93c5fd" stroke-width="0.8" fill="none" opacity="0.6"/>
+    <path d="M54 168 L58 115 Q65 105 72 115 L76 168Z" fill="url(#bG1)"/>
+    <path d="M58 145 Q65 140 72 145" stroke="#93c5fd" stroke-width="0.7" fill="none" opacity="0.7"/>
+    <path d="M58 133 Q65 128 72 133" stroke="#93c5fd" stroke-width="0.7" fill="none" opacity="0.7"/>
 
-    <!-- ── BURJ KHALIFA (center, tallest) ── -->
-    <path d="M100 170 L104 115 L108 55 L110 18 L112 55 L116 115 L120 170Z" fill="url(#bG1)"/>
-    <!-- Spire -->
-    <rect x="109" y="18" width="2" height="40" rx="1" fill="#3b82f6"/>
+    <!-- BURJ KHALIFA centre -->
+    <path d="M91 168 L95 110 L99 52 L100 16 L101 52 L105 110 L109 168Z" fill="url(#bG1)"/>
+    <rect x="99.5" y="16" width="1.5" height="38" rx="0.5" fill="#3b82f6"/>
     <!-- Setbacks -->
-    <rect x="98"  y="125" width="24" height="3" rx="1" fill="#2563eb" opacity="0.7"/>
-    <rect x="100" y="108" width="20" height="2" rx="1" fill="#2563eb" opacity="0.6"/>
-    <rect x="103" y="88"  width="14" height="2" rx="1" fill="#2563eb" opacity="0.5"/>
-    <rect x="105" y="70"  width="10" height="2" rx="1" fill="#2563eb" opacity="0.4"/>
-    <!-- Windows -->
-    <rect x="106" y="135" width="3" height="4" rx="0.5" fill="#bfdbfe" opacity="0.9"/>
-    <rect x="111" y="135" width="3" height="4" rx="0.5" fill="#bfdbfe" opacity="0.9"/>
-    <rect x="106" y="148" width="3" height="4" rx="0.5" fill="#bfdbfe" opacity="0.9"/>
-    <rect x="111" y="148" width="3" height="4" rx="0.5" fill="#bfdbfe" opacity="0.9"/>
-    <rect x="106" y="160" width="3" height="4" rx="0.5" fill="#bfdbfe" opacity="0.9"/>
-    <rect x="111" y="160" width="3" height="4" rx="0.5" fill="#bfdbfe" opacity="0.9"/>
+    <rect x="89" y="118" width="22" height="2.5" rx="1" fill="#1d4ed8" opacity="0.7"/>
+    <rect x="91" y="103" width="18" height="2"   rx="1" fill="#1d4ed8" opacity="0.6"/>
+    <rect x="93" y="85"  width="14" height="2"   rx="1" fill="#1d4ed8" opacity="0.5"/>
+    <rect x="95" y="67"  width="10" height="1.5" rx="0.5" fill="#1d4ed8" opacity="0.4"/>
+    <!-- Windows Burj -->
+    <rect x="96"  y="130" width="3" height="4" rx="0.5" fill="#bfdbfe" opacity="0.9"/>
+    <rect x="101" y="130" width="3" height="4" rx="0.5" fill="#bfdbfe" opacity="0.9"/>
+    <rect x="96"  y="142" width="3" height="4" rx="0.5" fill="#bfdbfe" opacity="0.9"/>
+    <rect x="101" y="142" width="3" height="4" rx="0.5" fill="#bfdbfe" opacity="0.9"/>
+    <rect x="96"  y="154" width="3" height="4" rx="0.5" fill="#bfdbfe" opacity="0.9"/>
+    <rect x="101" y="154" width="3" height="4" rx="0.5" fill="#bfdbfe" opacity="0.9"/>
 
     <!-- Right curved tower -->
-    <path d="M124 170 L128 122 Q135 112 142 122 L146 170Z" fill="url(#bG2)"/>
-    <path d="M128 150 Q135 145 142 150" stroke="#93c5fd" stroke-width="0.8" fill="none" opacity="0.6"/>
-    <path d="M128 138 Q135 133 142 138" stroke="#93c5fd" stroke-width="0.8" fill="none" opacity="0.6"/>
+    <path d="M114 168 L118 118 Q125 108 132 118 L136 168Z" fill="url(#bG2)"/>
+    <path d="M118 147 Q125 142 132 147" stroke="#93c5fd" stroke-width="0.7" fill="none" opacity="0.7"/>
+    <path d="M118 135 Q125 130 132 135" stroke="#93c5fd" stroke-width="0.7" fill="none" opacity="0.7"/>
 
     <!-- Right cluster -->
-    <rect x="148" y="132" width="18" height="38" rx="2" fill="url(#bG1)"/>
-    <rect x="168" y="125" width="14" height="45" rx="2" fill="url(#bG2)"/>
-    <rect x="184" y="135" width="12" height="35" rx="2" fill="url(#bG1)"/>
+    <rect x="138" y="126" width="17" height="42" rx="2" fill="url(#bG1)"/>
+    <rect x="157" y="118" width="13" height="50" rx="2" fill="url(#bG2)"/>
+    <rect x="172" y="128" width="11" height="40" rx="2" fill="url(#bG1)"/>
 
-    <!-- Water reflection swoosh -->
-    <path d="M14 170 Q80 160 110 168 Q140 175 206 165 L206 185 Q140 195 110 188 Q80 180 14 190Z"
-      fill="#1e3a8a" opacity="0.18"/>
-    <path d="M14 175 Q85 164 110 172 Q135 180 206 170 L206 180 Q135 190 110 182 Q85 174 14 185Z"
-      fill="#3b82f6" opacity="0.12"/>
+    <!-- Water reflection -->
+    <path d="M8 162 Q55 153 100 160 Q145 167 192 158 L192 178 Q145 187 100 180 Q55 173 8 182Z"
+      fill="#1e3a8a" opacity="0.15"/>
+    <!-- Wave lines -->
+    <path d="M8 168 Q55 160 100 166 Q145 172 192 164" stroke="#3b82f6" stroke-width="0.8" fill="none" opacity="0.3"/>
+    <path d="M8 173 Q55 165 100 171 Q145 177 192 169" stroke="#60a5fa" stroke-width="0.6" fill="none" opacity="0.2"/>
   </g>
 
-  <!-- ── Circle border ── -->
-  <circle cx="110" cy="105" r="96" fill="none" stroke="url(#borderG)" stroke-width="4"/>
-
-  <!-- ══════════════════════════════
-       TEXT BELOW CIRCLE
-  ══════════════════════════════ -->
-
-  <!-- SAI PROPERTIES -->
-  <text x="110" y="222"
-    font-family="Georgia, 'Times New Roman', serif"
-    font-size="22" font-weight="700" fill="#1e3a8a"
-    text-anchor="middle" letter-spacing="2">SAI PROPERTIES</text>
-
-  <!-- decorative lines + FZ-LLC -->
-  <line x1="14"  y1="234" x2="68"  y2="234" stroke="#1e3a8a" stroke-width="1.5"/>
-  <text x="110" y="239"
-    font-family="Georgia, 'Times New Roman', serif"
-    font-size="13" font-weight="600" fill="#1e3a8a"
-    text-anchor="middle" letter-spacing="4">FZ-LLC</text>
-  <line x1="152" y1="234" x2="206" y2="234" stroke="#1e3a8a" stroke-width="1.5"/>
+  <!-- Circle border -->
+  <circle cx="100" cy="100" r="92" fill="none" stroke="url(#borderG)" stroke-width="4"/>
 </svg>

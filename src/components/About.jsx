@@ -96,7 +96,7 @@ export default function About() {
                   <img
                     src={vaikunthanImg}
                     alt="K. Vaikunthan"
-                    className="w-full h-full object-cover object-top"
+                    className="w-full h-full object-cover object-center scale-110"
                   />
                 </div>
                 <span className="absolute bottom-0 right-0 w-4 h-4 bg-green-400 rounded-full border-2 border-white animate-pulse" />

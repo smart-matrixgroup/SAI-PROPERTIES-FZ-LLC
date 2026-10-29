@@ -67,23 +67,31 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
 
-            {/* ── Logo — only image, no extra text ── */}
+            {/* ── Logo — circle icon LEFT + "SAI PROPERTIES / FZ-LLC" text RIGHT ── */}
             <a
               href="#home"
               onClick={(e) => { e.preventDefault(); handleNavClick('#home'); }}
-              className="flex items-center flex-shrink-0 group"
+              className="flex items-center gap-3 flex-shrink-0 group"
             >
-              {/*
-                Logo SVG already contains "SAI PROPERTIES FZ-LLC" text inside it.
-                We show ONLY the logo image — no extra <p> tags beside it.
-              */}
-              <img
-                src={logo}
-                alt="SAI Properties FZ-LLC"
-                className={`w-auto object-contain transition-all duration-300
-                  group-hover:scale-105 drop-shadow-md
-                  ${scrolled ? 'h-16' : 'h-20'}`}
-              />
+              {/* Circle logo image — only the icon part (crop text off with overflow) */}
+              <div className={`flex-shrink-0 transition-all duration-300 group-hover:scale-105 ${scrolled ? 'h-14 w-14' : 'h-16 w-16'}`}>
+                <img
+                  src={logo}
+                  alt="SAI Properties logo"
+                  className="h-full w-full object-contain drop-shadow-md"
+                  style={{ objectPosition: 'center top' }}
+                />
+              </div>
+              {/* Company name text — right side of logo */}
+              <div className="flex flex-col leading-tight">
+                <span className={`font-heading font-bold tracking-widest text-primary-dark transition-all duration-300
+                  ${scrolled ? 'text-base' : 'text-lg'}`}>
+                  SAI PROPERTIES
+                </span>
+                <span className="text-gold font-bold text-xs tracking-[0.3em] uppercase">
+                  FZ-LLC
+                </span>
+              </div>
             </a>
 
             {/* ── Desktop Nav ── */}

@@ -64,10 +64,10 @@ export default function Hero() {
             className="w-full h-full object-cover object-center"
             loading={i === 0 ? 'eager' : 'lazy'}
           />
-          {/* Lighter overlay — so Dubai skyline clearly visible */}
+          {/* Very light overlay — Dubai buildings clearly visible */}
           <div className="absolute inset-0"
             style={{
-              background: 'linear-gradient(135deg, rgba(10,25,55,0.72) 0%, rgba(15,35,71,0.55) 50%, rgba(10,25,55,0.45) 100%)'
+              background: 'linear-gradient(180deg, rgba(5,15,35,0.45) 0%, rgba(10,25,55,0.30) 40%, rgba(5,15,35,0.50) 100%)'
             }}
           />
         </div>
