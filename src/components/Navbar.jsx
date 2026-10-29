@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { HiMenu, HiX } from 'react-icons/hi';
+import logo from '../assets/logo.svg';
 
 const navLinks = [
   { label: 'Home', href: '#home' },
@@ -42,11 +43,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-white shadow-lg py-2'
-          : 'bg-transparent py-4'
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white border-b-2 border-primary-dark shadow-md py-2"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
@@ -54,35 +51,14 @@ export default function Navbar() {
           <a
             href="#home"
             onClick={(e) => { e.preventDefault(); handleNavClick('#home'); }}
-            className="flex items-center gap-3 group"
+            className="flex items-center group"
           >
-            {/* SVG Logo matching company branding */}
-            <div className="w-12 h-12 flex-shrink-0">
-              <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                <circle cx="40" cy="40" r="38" fill={scrolled ? '#1a3a6b' : 'rgba(255,255,255,0.15)'} stroke={scrolled ? '#c9a84c' : 'rgba(201,168,76,0.8)'} strokeWidth="2"/>
-                {/* Skyline silhouette */}
-                <g fill={scrolled ? '#c9a84c' : '#e0c068'}>
-                  <rect x="15" y="42" width="6" height="22" rx="1"/>
-                  <rect x="22" y="34" width="6" height="30" rx="1"/>
-                  <rect x="29" y="28" width="8" height="36" rx="1"/>
-                  <rect x="38" y="22" width="5" height="42" rx="1"/>
-                  {/* Burj Khalifa style */}
-                  <rect x="44" y="18" width="4" height="46" rx="1"/>
-                  <rect x="49" y="30" width="7" height="34" rx="1"/>
-                  <rect x="57" y="38" width="6" height="26" rx="1"/>
-                </g>
-                {/* Water reflection */}
-                <rect x="12" y="64" width="56" height="2" rx="1" fill={scrolled ? '#2a5298' : 'rgba(255,255,255,0.4)'}/>
-              </svg>
-            </div>
-            <div>
-              <p className={`font-heading font-bold text-lg leading-tight tracking-wide transition-colors ${scrolled ? 'text-primary-dark' : 'text-white'}`}>
-                SAI PROPERTIES
-              </p>
-              <p className={`text-xs font-semibold tracking-widest transition-colors ${scrolled ? 'text-gold' : 'text-gold-light'}`}>
-                FZ-LLC
-              </p>
-            </div>
+            {/* Actual SAI Properties Logo */}
+            <img
+              src={logo}
+              alt="SAI Properties FZ-LLC"
+              className="h-16 w-auto object-contain transition-all duration-300 drop-shadow-lg"
+            />
           </a>
 
           {/* Desktop Nav */}
@@ -92,9 +68,8 @@ export default function Navbar() {
                 key={link.label}
                 href={link.href}
                 onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
-                className={`font-medium text-sm uppercase tracking-wider transition-colors duration-200 relative group ${
-                  scrolled ? 'text-gray-700 hover:text-primary' : 'text-white/90 hover:text-white'
-                } ${activeSection === link.href.replace('#', '') ? (scrolled ? 'text-primary' : 'text-white') : ''}`}
+                className={`font-medium text-sm uppercase tracking-wider transition-colors duration-200 relative group text-gray-700 hover:text-primary
+                  ${activeSection === link.href.replace('#', '') ? 'text-primary' : ''}`}
               >
                 {link.label}
                 <span className={`absolute -bottom-1 left-0 h-0.5 bg-gold transition-all duration-300 ${
@@ -114,9 +89,7 @@ export default function Navbar() {
           {/* Mobile Hamburger */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className={`md:hidden p-2 rounded-md transition-colors ${
-              scrolled ? 'text-primary hover:bg-gray-100' : 'text-white hover:bg-white/10'
-            }`}
+            className="md:hidden p-2 rounded-md transition-colors text-primary hover:bg-gray-100"
             aria-label="Toggle menu"
           >
             {isOpen ? <HiX size={24} /> : <HiMenu size={24} />}

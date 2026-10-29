@@ -1,5 +1,6 @@
 import { MdPhone, MdEmail, MdLocationOn } from 'react-icons/md';
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter, FaWhatsapp } from 'react-icons/fa';
+import logo from '../assets/logo.svg';
 
 const quickLinks = [
   { label: 'Home', href: '#home' },
@@ -35,26 +36,12 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-1">
             {/* Logo */}
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12">
-                <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                  <circle cx="40" cy="40" r="38" fill="rgba(255,255,255,0.08)" stroke="rgba(201,168,76,0.6)" strokeWidth="2"/>
-                  <g fill="#c9a84c">
-                    <rect x="15" y="42" width="6" height="22" rx="1"/>
-                    <rect x="22" y="34" width="6" height="30" rx="1"/>
-                    <rect x="29" y="28" width="8" height="36" rx="1"/>
-                    <rect x="38" y="22" width="5" height="42" rx="1"/>
-                    <rect x="44" y="18" width="4" height="46" rx="1"/>
-                    <rect x="49" y="30" width="7" height="34" rx="1"/>
-                    <rect x="57" y="38" width="6" height="26" rx="1"/>
-                  </g>
-                  <rect x="12" y="64" width="56" height="2" rx="1" fill="rgba(201,168,76,0.4)"/>
-                </svg>
-              </div>
-              <div>
-                <p className="font-heading font-bold text-lg text-white leading-tight">SAI PROPERTIES</p>
-                <p className="text-gold text-xs font-semibold tracking-widest">FZ-LLC</p>
-              </div>
+            <div className="mb-4">
+              <img
+                src={logo}
+                alt="SAI Properties FZ-LLC"
+                className="h-20 w-auto object-contain drop-shadow-lg"
+              />
             </div>
             <p className="text-white/50 text-sm leading-relaxed mb-5">
               Premium real estate solutions in UAE — connecting you to the finest properties 
