@@ -140,20 +140,7 @@ export default function Navbar() {
               {/* Divider */}
               <div className="w-px h-8 bg-gray-200 mx-2" />
 
-              {/* WhatsApp pill */}
-              <a
-                href="https://wa.me/971567986455"
-                target="_blank" rel="noreferrer"
-                className="flex items-center gap-2 bg-green-500 hover:bg-green-600
-                  text-white px-4 py-2 rounded-full text-sm font-bold
-                  transition-all duration-300 hover:shadow-lg hover:shadow-green-500/30
-                  hover:-translate-y-0.5 hover:scale-105 active:scale-95"
-              >
-                <FaWhatsapp size={16} className="animate-pulse" />
-                WhatsApp
-              </a>
-
-              {/* Get In Touch */}
+              {/* Get In Touch only */}
               <a
                 href="#contact"
                 onClick={(e) => { e.preventDefault(); handleNavClick('#contact'); }}
@@ -213,15 +200,6 @@ export default function Navbar() {
             })}
 
             <div className="flex gap-3 mt-4 pt-3 border-t border-gray-100">
-              <a
-                href="https://wa.me/971567986455"
-                target="_blank" rel="noreferrer"
-                className="flex-1 flex items-center justify-center gap-2
-                  bg-green-500 text-white py-3 rounded-xl font-bold text-sm
-                  hover:bg-green-600 transition-colors shadow-md"
-              >
-                <FaWhatsapp size={18} /> WhatsApp
-              </a>
               <a
                 href="#contact"
                 onClick={(e) => { e.preventDefault(); handleNavClick('#contact'); }}

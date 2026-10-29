@@ -169,19 +169,6 @@ export default function Hero() {
             >
               Contact Us
             </a>
-
-            {/* WhatsApp */}
-            <a
-              href="https://wa.me/971567986455"
-              target="_blank" rel="noreferrer"
-              className="group flex items-center gap-2 bg-green-500 hover:bg-green-400
-                text-white px-8 py-4 rounded-xl font-bold text-base transition-all
-                duration-300 hover:shadow-2xl hover:shadow-green-500/40 hover:-translate-y-1
-                active:translate-y-0 shadow-lg"
-            >
-              <FaWhatsapp size={20} className="group-hover:scale-125 transition-transform" />
-              WhatsApp
-            </a>
           </div>
         </div>
 

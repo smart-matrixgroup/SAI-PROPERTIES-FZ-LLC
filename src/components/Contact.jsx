@@ -139,17 +139,18 @@ export default function Contact() {
                       <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-gold ring-offset-2 ring-offset-primary
                         group-hover:ring-4 transition-all duration-300">
                         <img
-                    src={vaikunthanImg}
-                    alt="K. Vaikunthan"
-                    className="w-full h-full object-cover object-center scale-110"
-                  />
+                          src={vaikunthanImg}
+                          alt="K. Vaikunthan"
+                          className="w-full h-full object-cover object-top"
+                          style={{ objectPosition: '50% 15%' }}
+                        />
                       </div>
                       {/* Online dot */}
                       <span className="absolute bottom-0.5 right-0.5 w-3.5 h-3.5 bg-green-400 rounded-full border-2 border-primary animate-pulse" />
                     </div>
                     <div>
                       <p className="font-heading font-bold text-white text-base">K. Vaikunthan</p>
-                      <p className="text-gold text-xs font-semibold uppercase tracking-wider">Chief Officer (CO)</p>
+                      <p className="text-gold text-xs font-semibold uppercase tracking-wider">Coordinator Director</p>
                       <p className="text-white/40 text-xs mt-0.5">SAI Properties FZ-LLC</p>
                     </div>
                   </div>
