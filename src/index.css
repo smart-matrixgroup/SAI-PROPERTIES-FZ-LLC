@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans text-gray-800 bg-white;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white px-6 py-3 rounded-md font-semibold 
+           hover:bg-primary-light transition-all duration-300 
+           shadow-md hover:shadow-lg inline-block;
+  }
+
+  .btn-outline {
+    @apply border-2 border-white text-white px-6 py-3 rounded-md font-semibold 
+           hover:bg-white hover:text-primary transition-all duration-300 inline-block;
+  }
+
+  .btn-gold {
+    @apply bg-gold text-white px-6 py-3 rounded-md font-semibold 
+           hover:bg-gold-dark transition-all duration-300 
+           shadow-md hover:shadow-lg inline-block;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-heading font-bold text-primary-dark;
+  }
+
+  .section-subtitle {
+    @apply text-gold font-semibold text-sm uppercase tracking-widest mb-3;
+  }
+
+  .card {
+    @apply bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a3a6b;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2a5298;
+}
+
+/* Hero video overlay */
+.hero-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(15, 35, 71, 0.85) 0%,
+    rgba(26, 58, 107, 0.7) 50%,
+    rgba(26, 58, 107, 0.5) 100%
+  );
+}
+
+/* Property card hover effect */
+.property-card:hover .property-overlay {
+  opacity: 1;
+}
+
+.property-overlay {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Gold divider */
+.gold-divider {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #c9a84c, #e0c068);
+  border-radius: 2px;
+}
+
+/* Animated counter */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.stat-item {
+  animation: countUp 0.6s ease-out forwards;
+}
