@@ -265,9 +265,11 @@ export default function Projects({ onViewAzizi }) {
           {filtered.map((project, i) => (
             <div
               key={project.id}
+              onClick={project.isAzizi ? () => onViewAzizi && onViewAzizi() : undefined}
               className={`bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl
                 hover:-translate-y-2 border border-gray-100 hover:border-gold/30
                 transition-all duration-400 group
+                ${project.isAzizi ? 'cursor-pointer' : ''}
                 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
               style={{ transitionDelay: visible ? `${i * 70}ms` : '0ms' }}
             >
@@ -303,21 +305,20 @@ export default function Projects({ onViewAzizi }) {
                 <div className="absolute inset-0 bg-primary/80 flex flex-col items-center justify-center gap-3
                   opacity-0 group-hover:opacity-100 transition-all duration-300 p-4">
                   {project.isAzizi ? (
-                    <button
-                      onClick={() => onViewAzizi && onViewAzizi()}
-                      className="bg-white text-primary font-bold px-5 py-2.5 rounded-xl
-                        flex items-center gap-2 hover:bg-gold hover:text-white transition-colors shadow-lg text-sm">
-                      View Details <MdArrowForward size={16} />
-                    </button>
+                    <div className="text-white font-bold text-sm flex items-center gap-2">
+                      <MdArrowForward size={18} className="animate-bounce" />
+                      Click to View Details
+                    </div>
                   ) : project.link ? (
                     <a href={project.link} target="_blank" rel="noreferrer"
+                      onClick={(e) => e.stopPropagation()}
                       className="bg-white text-primary font-bold px-5 py-2.5 rounded-xl
                         flex items-center gap-2 hover:bg-gold hover:text-white transition-colors shadow-lg text-sm">
                       Official Site <MdArrowForward size={16} />
                     </a>
                   ) : null}
                   <a href="#contact"
-                    onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}
+                    onClick={(e) => { e.stopPropagation(); e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}
                     className="bg-gold/90 text-white font-bold px-5 py-2.5 rounded-xl
                       flex items-center gap-2 hover:bg-gold transition-colors shadow-lg text-sm">
                     Enquire Now
