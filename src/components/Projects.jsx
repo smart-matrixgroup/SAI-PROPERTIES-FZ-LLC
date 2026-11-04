@@ -60,7 +60,7 @@ const projects = [
     image: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=600&q=80',
   },
 
-  // ── Azizi Developments (Official Data from aziziflorence.com) ──
+  // ── Azizi Developments (Official Data) ──
   {
     id: 10,
     title: 'Azizi Florence',
@@ -68,7 +68,6 @@ const projects = [
     category: 'Azizi',
     type: 'Villa / Townhouse / Apt',
     beds: '3–6',
-    baths: null,
     area: '30,000,000',
     price: 'From AED 2,120,000',
     status: 'Off-Plan',
@@ -78,6 +77,126 @@ const projects = [
     highlights: "Sharjah's Largest Masterplan · 10,000+ Homes · 1.7M sqft Park · 30/70 Payment Plan",
     image: 'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=600&q=80',
     link: 'https://aziziflorence.com',
+    isAzizi: true,
+  },
+  {
+    id: 11,
+    title: 'Burj Azizi',
+    location: 'Sheikh Zayed Road, Dubai',
+    category: 'Azizi',
+    type: 'Suites / Apts / Hotel',
+    beds: '1–5+',
+    area: '786–2,158',
+    price: 'From AED 7,500,000',
+    status: 'Off-Plan',
+    delivery: 'Q4 2028',
+    featured: true,
+    developer: 'Azizi Developments',
+    highlights: "World's 2nd Tallest Tower · 725m Height · 131+ Floors · 7-Star Hotel · 1,047 Residences",
+    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80',
+    link: 'https://www.azizidevelopments.com/dubai/sheikh-zayed-road/burj-azizi',
+  },
+  {
+    id: 12,
+    title: 'Azizi Venice',
+    location: 'Dubai South, Dubai',
+    category: 'Azizi',
+    type: 'Apartment / Villa',
+    beds: 'Studio–3',
+    area: '332–1,451',
+    price: 'From AED 600,000',
+    status: 'Off-Plan',
+    delivery: 'Q4 2026',
+    featured: false,
+    developer: 'Azizi Developments',
+    highlights: 'Crystal Lagoon Community · 36,000+ Units · Opera House · Waterfront Boulevard',
+    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80',
+    link: 'https://www.azizidevelopments.com/dubai/dubai-south/azizi-venice',
+  },
+  {
+    id: 13,
+    title: 'Azizi Riviera',
+    location: 'Meydan, MBR City, Dubai',
+    category: 'Azizi',
+    type: 'Apartment',
+    beds: 'Studio–3',
+    area: '325–1,650',
+    price: 'From AED 538,000',
+    status: 'Off-Plan',
+    delivery: 'Q4 2027',
+    featured: false,
+    developer: 'Azizi Developments',
+    highlights: 'Mediterranean Community · 75 Buildings · Crystal Lagoon · Retail Boulevard · 5-Star Hotel',
+    image: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=600&q=80',
+    link: 'https://www.azizidevelopments.com/dubai/meydan/riviera-beachfront',
+  },
+  {
+    id: 14,
+    title: 'Azizi Creek Views III',
+    location: 'Dubai Healthcare City, Al Jaddaf, Dubai',
+    category: 'Azizi',
+    type: 'Apartment',
+    beds: 'Studio–3',
+    area: '400–1,800',
+    price: 'From AED 538,000',
+    status: 'Off-Plan',
+    delivery: 'Q3 2027',
+    featured: false,
+    developer: 'Azizi Developments',
+    highlights: 'Panoramic Creek Views · Modern Finishes · Healthcare City · Near Downtown Dubai',
+    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80',
+    link: 'https://www.azizidevelopments.com/dubai/dubai-healthcare-city/creek-views-III',
+  },
+  {
+    id: 15,
+    title: 'Azizi Rivière Rêve',
+    location: 'Meydan, MBR City, Dubai',
+    category: 'Azizi',
+    type: 'Apartment',
+    beds: 'Studio–3',
+    area: '400–2,000',
+    price: 'From AED 900,000',
+    status: 'Off-Plan',
+    delivery: 'Q2 2027',
+    featured: false,
+    developer: 'Azizi Developments',
+    highlights: '5-Star Hotel-Inspired Design · Infinity Pool · Crystal Lagoon · Retail Boulevard',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80',
+    link: 'https://www.azizidevelopments.com/Dubai/meydan/riviera-reve',
+  },
+  {
+    id: 16,
+    title: 'Azizi Mina',
+    location: 'Palm Jumeirah, Dubai',
+    category: 'Azizi',
+    type: 'Apartment / Penthouse',
+    beds: '1–4',
+    area: '700–3,500',
+    price: 'From AED 3,200,000',
+    status: 'Ready',
+    delivery: 'Completed',
+    featured: true,
+    developer: 'Azizi Developments',
+    highlights: '178 Apartments · 4 Penthouses · Beachfront · 5-Star Hotels Nearby · Ready to Move',
+    image: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&q=80',
+    link: 'https://www.azizidevelopments.com/dubai/palm-jumeirah/mina',
+  },
+  {
+    id: 17,
+    title: 'Azizi Royal Bay',
+    location: 'Palm Jumeirah, Dubai',
+    category: 'Azizi',
+    type: 'Apartment / Penthouse',
+    beds: '1–4',
+    area: '700–4,000',
+    price: 'From AED 2,500,000',
+    status: 'Ready',
+    delivery: 'Completed',
+    featured: false,
+    developer: 'Azizi Developments',
+    highlights: '90 Units · 2 Penthouses · Sea Views · Private Beach · Gym & Pool · 45° Rotation Design',
+    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80',
+    link: 'https://www.azizidevelopments.com/Dubai/palm-jumeirah/royal-bay',
   },
 ];
 
@@ -183,13 +302,19 @@ export default function Projects({ onViewAzizi }) {
                 {/* Hover overlay */}
                 <div className="absolute inset-0 bg-primary/80 flex flex-col items-center justify-center gap-3
                   opacity-0 group-hover:opacity-100 transition-all duration-300 p-4">
-                  {project.developer ? (
+                  {project.isAzizi ? (
                     <button
                       onClick={() => onViewAzizi && onViewAzizi()}
                       className="bg-white text-primary font-bold px-5 py-2.5 rounded-xl
                         flex items-center gap-2 hover:bg-gold hover:text-white transition-colors shadow-lg text-sm">
                       View Details <MdArrowForward size={16} />
                     </button>
+                  ) : project.link ? (
+                    <a href={project.link} target="_blank" rel="noreferrer"
+                      className="bg-white text-primary font-bold px-5 py-2.5 rounded-xl
+                        flex items-center gap-2 hover:bg-gold hover:text-white transition-colors shadow-lg text-sm">
+                      Official Site <MdArrowForward size={16} />
+                    </a>
                   ) : null}
                   <a href="#contact"
                     onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}
