@@ -94,7 +94,7 @@ const projects = [
     developer: 'Azizi Developments',
     highlights: "World's 2nd Tallest Tower · 725m Height · 131+ Floors · 7-Star Hotel · 1,047 Residences",
     image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80',
-    link: 'https://www.azizidevelopments.com/dubai/sheikh-zayed-road/burj-azizi',
+    link: 'https://www.azizidevelopments.com/en',
   },
   {
     id: 12,
