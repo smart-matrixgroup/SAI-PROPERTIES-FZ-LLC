@@ -1,7 +1,36 @@
 import { useEffect, useRef, useState } from 'react';
-import { MdPlayCircle, MdPauseCircle } from 'react-icons/md';
+import { MdPlayArrow } from 'react-icons/md';
+import { FaFacebook } from 'react-icons/fa';
 
-function useIntersection(ref, threshold = 0.2) {
+// ── Azizi Facebook Reels ──
+const reels = [
+  {
+    id: 1,
+    videoId: '1602607494683952',
+    title: 'Azizi Developments',
+    tag: 'Project Showcase',
+  },
+  {
+    id: 2,
+    videoId: '1679734180157167',
+    title: 'Azizi Developments',
+    tag: 'Community Tour',
+  },
+  {
+    id: 3,
+    videoId: '1745548686505877',
+    title: 'Azizi Developments',
+    tag: 'Lifestyle',
+  },
+  {
+    id: 4,
+    videoId: '2157121364876987',
+    title: 'Azizi Developments',
+    tag: 'Latest Update',
+  },
+];
+
+function useIntersection(ref, threshold = 0.1) {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -16,102 +45,160 @@ function useIntersection(ref, threshold = 0.2) {
 
 export default function VideoSection() {
   const sectionRef = useRef(null);
-  const videoRef = useRef(null);
   const visible = useIntersection(sectionRef);
-  const [playing, setPlaying] = useState(false);
-  const [showOverlay, setShowOverlay] = useState(true);
+  const [activeReel, setActiveReel] = useState(0);
+  const [loaded, setLoaded] = useState({});
 
-  const handlePlay = () => {
-    if (videoRef.current) {
-      if (playing) {
-        videoRef.current.pause();
-        setPlaying(false);
-        setShowOverlay(true);
-      } else {
-        videoRef.current.play();
-        setPlaying(true);
-        setShowOverlay(false);
-      }
-    }
-  };
+  const handleLoad = (id) => setLoaded(prev => ({ ...prev, [id]: true }));
+
+  const activeVideo = reels[activeReel];
 
   return (
     <section ref={sectionRef} className="py-20 md:py-28 bg-primary-dark overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
-          {/* Left: Text */}
-          <div className={`transition-all duration-700 ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-            <p className="text-gold font-semibold text-sm uppercase tracking-widest mb-3">See It For Yourself</p>
-            <h2 className="font-heading font-bold text-white text-3xl md:text-4xl leading-tight mb-6">
-              Experience Dubai's Finest<br />
-              <span className="text-gold">Real Estate</span>
-            </h2>
-            <div className="gold-divider mb-6" />
-            <p className="text-white/70 leading-relaxed mb-6">
-              Step inside our premium properties and discover what makes SAI Properties
-              FZ-LLC the preferred choice for discerning buyers and investors across UAE
-              and global markets.
-            </p>
-            <ul className="space-y-3">
-              {[
-                'Luxury waterfront apartments',
-                'High-ROI investment properties',
-                'Landmark commercial spaces',
-                'Off-plan projects with flexible payment plans',
-              ].map((item, i) => (
-                <li key={i} className="flex items-center gap-3 text-white/80 text-sm">
-                  <span className="w-5 h-5 bg-gold rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
-                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
-                    </svg>
-                  </span>
-                  {item}
-                </li>
-              ))}
-            </ul>
+        {/* ── Header ── */}
+        <div className={`text-center mb-12 transition-all duration-700
+          ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <p className="text-gold font-semibold text-sm uppercase tracking-widest mb-3">
+            Official Videos
+          </p>
+          <h2 className="font-heading font-bold text-white text-3xl md:text-4xl leading-tight mb-4">
+            Azizi Developments<br />
+            <span className="text-gold">Project Videos</span>
+          </h2>
+          <div className="gold-divider mx-auto mb-4" />
+          <p className="text-white/60 max-w-xl mx-auto text-sm">
+            Watch the latest videos from Azizi Developments — official property tours,
+            project showcases and lifestyle videos.
+          </p>
+          <div className="flex items-center justify-center gap-2 mt-3">
+            <FaFacebook className="text-blue-400" size={16} />
+            <a href="https://www.facebook.com/AziziGroup/videos"
+              target="_blank" rel="noreferrer"
+              className="text-blue-400 hover:text-blue-300 text-xs font-semibold
+                hover:underline transition-colors">
+              Follow Azizi Developments on Facebook
+            </a>
           </div>
+        </div>
 
-          {/* Right: Video player — note text REMOVED */}
-          <div className={`transition-all duration-700 delay-200 ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-            <div
-              className="relative rounded-2xl overflow-hidden shadow-2xl aspect-video bg-gray-900 cursor-pointer group ring-1 ring-white/10"
-              onClick={handlePlay}
-            >
-              <video
-                ref={videoRef}
-                className="w-full h-full object-cover"
-                loop
-                muted
-                playsInline
-                poster="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=900&q=85"
-              >
-                {/* Place your video: <source src="/sai-tour.mp4" type="video/mp4" /> */}
-              </video>
+        {/* ── Main Video Player ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-              {showOverlay && (
-                <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/70 via-primary/30 to-transparent
-                  flex flex-col items-center justify-center">
-                  <div className="group-hover:scale-110 transition-transform duration-300">
-                    <MdPlayCircle size={80} className="text-gold drop-shadow-2xl" />
-                  </div>
-                  <p className="text-white font-bold mt-3 text-base tracking-wide">Watch Property Tour</p>
+          {/* Main featured reel */}
+          <div className={`lg:col-span-2 transition-all duration-700
+            ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
+            <div className="relative rounded-2xl overflow-hidden bg-black
+              ring-1 ring-white/10 shadow-2xl" style={{ paddingBottom: '56.25%' }}>
+              {/* Loading spinner */}
+              {!loaded[activeVideo.videoId] && (
+                <div className="absolute inset-0 flex items-center justify-center bg-primary-dark z-10">
+                  <div className="w-10 h-10 border-2 border-gold/30 border-t-gold
+                    rounded-full animate-spin" />
                 </div>
               )}
-
-              {playing && (
-                <button
-                  className="absolute bottom-4 right-4 text-white/70 hover:text-white transition-colors"
-                  onClick={(e) => { e.stopPropagation(); handlePlay(); }}
-                >
-                  <MdPauseCircle size={38} />
-                </button>
-              )}
+              <iframe
+                key={activeVideo.videoId}
+                className="absolute inset-0 w-full h-full"
+                src={`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F${activeVideo.videoId}&show_text=false&appId=&width=560`}
+                style={{ border: 'none', overflow: 'hidden' }}
+                scrolling="no"
+                frameBorder="0"
+                allowFullScreen
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                title={`Azizi Reel ${activeVideo.videoId}`}
+                onLoad={() => handleLoad(activeVideo.videoId)}
+              />
             </div>
-            {/* Note text completely removed as requested */}
+
+            {/* Tag + FB link */}
+            <div className="flex items-center justify-between mt-3 px-1">
+              <span className="text-xs bg-gold/20 text-gold px-3 py-1 rounded-full font-semibold">
+                {activeVideo.tag}
+              </span>
+              <a
+                href={`https://www.facebook.com/reel/${activeVideo.videoId}`}
+                target="_blank" rel="noreferrer"
+                className="flex items-center gap-1.5 text-blue-400 hover:text-blue-300
+                  text-xs font-semibold transition-colors"
+              >
+                <FaFacebook size={13} /> View on Facebook
+              </a>
+            </div>
           </div>
 
+          {/* Reel thumbnails sidebar */}
+          <div className={`flex flex-col gap-4 transition-all duration-700 delay-200
+            ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
+            <p className="text-white/50 text-xs uppercase tracking-widest font-semibold px-1">
+              More Videos
+            </p>
+            {reels.map((reel, i) => (
+              <button
+                key={reel.id}
+                onClick={() => setActiveReel(i)}
+                className={`relative rounded-xl overflow-hidden text-left
+                  transition-all duration-300 group border-2
+                  ${activeReel === i
+                    ? 'border-gold shadow-lg shadow-gold/20'
+                    : 'border-white/10 hover:border-white/30'
+                  }`}
+              >
+                {/* Thumbnail iframe (small, muted preview) */}
+                <div className="relative bg-primary" style={{ paddingBottom: '56.25%' }}>
+                  <iframe
+                    className="absolute inset-0 w-full h-full pointer-events-none"
+                    src={`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F${reel.videoId}&show_text=false&appId=&width=200`}
+                    style={{ border: 'none', overflow: 'hidden' }}
+                    scrolling="no"
+                    frameBorder="0"
+                    title={`Thumb ${reel.videoId}`}
+                    tabIndex={-1}
+                  />
+                  {/* Play overlay */}
+                  {activeReel !== i && (
+                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center
+                      group-hover:bg-black/20 transition-colors">
+                      <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center
+                        group-hover:bg-gold transition-colors">
+                        <MdPlayArrow className="text-white" size={18} />
+                      </div>
+                    </div>
+                  )}
+                  {/* Active indicator */}
+                  {activeReel === i && (
+                    <div className="absolute top-2 left-2 bg-gold text-white text-[10px]
+                      font-bold px-2 py-0.5 rounded-full">
+                      ▶ Playing
+                    </div>
+                  )}
+                </div>
+                <div className="p-2 bg-primary-dark">
+                  <p className="text-white/80 text-xs font-semibold">{reel.tag}</p>
+                  <p className="text-white/40 text-[10px] mt-0.5 flex items-center gap-1">
+                    <FaFacebook size={10} className="text-blue-400" />
+                    Azizi Developments
+                  </p>
+                </div>
+              </button>
+            ))}
+
+            {/* See all link */}
+            <a
+              href="https://www.facebook.com/AziziGroup/videos"
+              target="_blank" rel="noreferrer"
+              className="flex items-center justify-center gap-2 bg-blue-600/20
+                hover:bg-blue-600/40 border border-blue-500/30 text-blue-400
+                py-3 rounded-xl text-xs font-bold transition-all duration-300
+                hover:border-blue-400"
+            >
+              <FaFacebook size={14} />
+              See All Videos on Facebook
+            </a>
+          </div>
         </div>
+
       </div>
     </section>
   );
