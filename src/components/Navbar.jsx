@@ -7,6 +7,7 @@ import {
   MdMiscellaneousServices,
   MdApartment,
   MdContactPhone,
+  MdConstruction,
 } from 'react-icons/md';
 import logo from '../assets/logo.svg';
 
@@ -15,6 +16,7 @@ const navLinks = [
   { label: 'About',    href: '#about',    icon: MdInfoOutline },
   { label: 'Services', href: '#services', icon: MdMiscellaneousServices },
   { label: 'Projects', href: '#projects', icon: MdApartment },
+  { label: 'Updates',  href: '#updates',  icon: MdConstruction },
   { label: 'Contact',  href: '#contact',  icon: MdContactPhone },
 ];
 

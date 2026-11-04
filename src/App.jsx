@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Services from './components/Services';
 import Projects from './components/Projects';
+import ConstructionUpdates from './components/ConstructionUpdates';
 import VideoSection from './components/VideoSection';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -25,6 +26,7 @@ export default function App() {
           <About />
           <Services />
           <Projects onViewAzizi={() => setShowAzizi(true)} />
+          <ConstructionUpdates />
           <VideoSection />
           <Contact />
         </main>
