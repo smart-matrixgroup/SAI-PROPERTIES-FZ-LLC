@@ -149,9 +149,18 @@ export default function AziziFlorence({ onClose }) {
                 px-4 py-2 rounded-full font-bold hover:bg-green-600 transition-colors">
               <FaWhatsapp size={13} /> Enquire
             </a>
-            <button onClick={onClose}
-              className="p-2 rounded-full hover:bg-gray-100 transition-colors text-gray-500">
-              <MdClose size={22} />
+            {/* Return Home button */}
+            <button
+              onClick={onClose}
+              className="flex items-center gap-1.5 text-xs bg-gray-100 hover:bg-primary
+                hover:text-white text-gray-600 px-4 py-2 rounded-full font-bold
+                transition-all duration-300 group"
+            >
+              <svg className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              Return Home
             </button>
           </div>
         </div>
