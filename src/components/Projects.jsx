@@ -8,19 +8,20 @@ const projects = [
   {
     id: 1,
     title: 'Azizi Florence',
-    location: 'Sharjah, Um Farem, Azizi Florence',
+    location: 'Um Fanain, Sharjah — Sheikh Mohammed Bin Zayed Road (E311)',
     category: 'Azizi',
-    type: 'Apartment',
+    type: 'Villa / Townhouse / Apartment',
     beds: '3–6',
     baths: null,
-    area: 'Multiple',
-    price: 'AED 1,890,000',
+    area: '30,000,000',
+    price: 'From AED 2,120,000',
     status: 'Off-Plan',
     delivery: 'Q3 2029',
     featured: true,
     developer: 'Azizi Developments',
+    highlights: "Sharjah's Largest Masterplan · 10,000+ Homes · 1.7M sqft Park · 100+ Amenities · 30/70 Payment Plan",
     image: 'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=600&q=80',
-    link: 'https://www.propertyfinder.ae/en/buy/properties-for-sale.html',
+    link: 'https://aziziflorence.com',
   },
   {
     id: 2,
@@ -318,16 +319,26 @@ export default function Projects() {
                 )}
 
                 {/* Hover overlay with CTA */}
-                <div className="absolute inset-0 bg-primary/80 flex items-center justify-center
-                  opacity-0 group-hover:opacity-100 transition-all duration-300">
+                <div className="absolute inset-0 bg-primary/80 flex flex-col items-center justify-center gap-3
+                  opacity-0 group-hover:opacity-100 transition-all duration-300 p-4">
+                  <a
+                    href={project.link || '#contact'}
+                    target={project.link ? '_blank' : undefined}
+                    rel="noreferrer"
+                    onClick={project.link ? undefined : (e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}
+                    className="bg-white text-primary font-bold px-5 py-2.5 rounded-xl
+                      flex items-center gap-2 hover:bg-gold hover:text-white transition-colors
+                      shadow-lg text-sm"
+                  >
+                    View Project <MdArrowForward size={16} />
+                  </a>
                   <a
                     href="#contact"
                     onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}
-                    className="bg-white text-primary font-bold px-5 py-2.5 rounded-xl
-                      flex items-center gap-2 hover:bg-gold hover:text-white transition-colors
-                      shadow-lg transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300"
+                    className="bg-gold/90 text-white font-bold px-5 py-2.5 rounded-xl
+                      flex items-center gap-2 hover:bg-gold transition-colors shadow-lg text-sm"
                   >
-                    Enquire Now <MdArrowForward size={16} />
+                    Enquire Now
                   </a>
                 </div>
 
@@ -368,7 +379,7 @@ export default function Projects() {
                   )}
                   {project.area && project.area !== 'Multiple' && (
                     <div className="flex items-center gap-1">
-                      <MdSquareFoot size={14} className="text-primary" /> {project.area} sqft
+                      <MdSquareFoot size={14} className="text-primary" /> {Number(project.area.replace(/,/g,'')).toLocaleString()} sqft
                     </div>
                   )}
                   {project.developer && (
@@ -377,6 +388,13 @@ export default function Projects() {
                     </div>
                   )}
                 </div>
+
+                {/* Highlights */}
+                {project.highlights && (
+                  <p className="text-xs text-gold font-medium mt-2 leading-relaxed">
+                    {project.highlights}
+                  </p>
+                )}
 
                 {/* Footer */}
                 <div className="flex items-center justify-between mt-4">
