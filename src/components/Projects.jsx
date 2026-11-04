@@ -1,62 +1,214 @@
 import { useEffect, useRef, useState } from 'react';
 import { MdLocationOn, MdBed, MdBathtub, MdSquareFoot, MdArrowForward, MdStar } from 'react-icons/md';
 
-const categories = ['All', 'Residential', 'Commercial', 'Luxury', 'Off-Plan'];
+const categories = ['All', 'Residential', 'Luxury', 'Off-Plan', 'Azizi'];
 
 const projects = [
+  // ── Azizi Developments Projects (via PropertyFinder public listings) ──
   {
-    id: 1, title: 'Marina Heights', location: 'Dubai Marina, UAE',
-    category: 'Luxury', type: 'Apartment', beds: 3, baths: 2, area: '1,850',
-    price: 'AED 2.8M', status: 'Ready', featured: true,
-    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80',
+    id: 1,
+    title: 'Azizi Florence',
+    location: 'Sharjah, Um Farem, Azizi Florence',
+    category: 'Azizi',
+    type: 'Apartment',
+    beds: '3–6',
+    baths: null,
+    area: 'Multiple',
+    price: 'AED 1,890,000',
+    status: 'Off-Plan',
+    delivery: 'Q3 2029',
+    featured: true,
+    developer: 'Azizi Developments',
+    image: 'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=600&q=80',
+    link: 'https://www.propertyfinder.ae/en/buy/properties-for-sale.html',
   },
   {
-    id: 2, title: 'Palm Grove Villas', location: 'Palm Jumeirah, UAE',
-    category: 'Luxury', type: 'Villa', beds: 5, baths: 4, area: '4,200',
-    price: 'AED 8.5M', status: 'Ready', featured: true,
-    image: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&q=80',
+    id: 2,
+    title: 'Azizi Jaddaf Beach Oasis',
+    location: 'Dubai, Al Jaddaf, Azizi Jaddaf Beach Oasis',
+    category: 'Azizi',
+    type: 'Apartment',
+    beds: null,
+    baths: null,
+    area: 'Multiple',
+    price: 'AED 720,000',
+    status: 'Off-Plan',
+    delivery: 'Q4 2028',
+    featured: true,
+    developer: 'Azizi Developments',
+    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80',
+    link: 'https://www.propertyfinder.ae/en/buy/properties-for-sale.html',
   },
   {
-    id: 3, title: 'Downtown Business Hub', location: 'Downtown Dubai, UAE',
-    category: 'Commercial', type: 'Office', beds: null, baths: null, area: '3,500',
-    price: 'AED 5.2M', status: 'Ready', featured: false,
-    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80',
-  },
-  {
-    id: 4, title: 'Creek View Residences', location: 'Dubai Creek Harbour, UAE',
-    category: 'Off-Plan', type: 'Apartment', beds: 2, baths: 2, area: '1,200',
-    price: 'AED 1.6M', status: 'Off-Plan', featured: false,
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80',
-  },
-  {
-    id: 5, title: 'Deira Gold Towers', location: 'Deira, Dubai, UAE',
-    category: 'Commercial', type: 'Retail', beds: null, baths: null, area: '2,100',
-    price: 'AED 3.1M', status: 'Ready', featured: false,
-    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80',
-  },
-  {
-    id: 6, title: 'Emaar Suburban Homes', location: 'Arabian Ranches, UAE',
-    category: 'Residential', type: 'Villa', beds: 4, baths: 3, area: '3,100',
-    price: 'AED 4.4M', status: 'Ready', featured: false,
-    image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600&q=80',
-  },
-  {
-    id: 7, title: 'Sports City Apartments', location: 'Dubai Sports City, UAE',
-    category: 'Residential', type: 'Apartment', beds: 1, baths: 1, area: '750',
-    price: 'AED 650K', status: 'Ready', featured: false,
-    image: 'https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&q=80',
-  },
-  {
-    id: 8, title: 'Harbour Square Towers', location: 'Business Bay, UAE',
-    category: 'Off-Plan', type: 'Apartment', beds: 2, baths: 2, area: '1,100',
-    price: 'AED 1.9M', status: 'Off-Plan', featured: false,
+    id: 3,
+    title: 'Azizi Milan',
+    location: 'Dubai, City of Arabia, Azizi Milan',
+    category: 'Azizi',
+    type: 'Apartment',
+    beds: '1–3',
+    baths: null,
+    area: 'Multiple',
+    price: 'AED 560,000',
+    status: 'Off-Plan',
+    delivery: 'Q2 2028',
+    featured: false,
+    developer: 'Azizi Developments',
     image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80',
+    link: 'https://www.propertyfinder.ae/en/buy/properties-for-sale.html',
   },
   {
-    id: 9, title: 'JBR Beachfront Suites', location: 'Jumeirah Beach, UAE',
-    category: 'Luxury', type: 'Apartment', beds: 3, baths: 3, area: '2,200',
-    price: 'AED 4.2M', status: 'Ready', featured: false,
+    id: 4,
+    title: 'Azizi Riviera 49',
+    location: 'Dubai, Meydan, Meydan One, Azizi Riviera',
+    category: 'Azizi',
+    type: 'Apartment',
+    beds: 'Studio–4',
+    baths: null,
+    area: 'Multiple',
+    price: 'AED 1,610,000',
+    status: 'Off-Plan',
+    delivery: 'Q1 2027',
+    featured: false,
+    developer: 'Azizi Developments',
     image: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=600&q=80',
+    link: 'https://www.propertyfinder.ae/en/buy/properties-for-sale.html',
+  },
+  {
+    id: 5,
+    title: 'Azizi Wasl',
+    location: 'Dubai, Dubai Islands, Azizi Wasl',
+    category: 'Azizi',
+    type: 'Apartment',
+    beds: '1–3',
+    baths: null,
+    area: 'Multiple',
+    price: 'AED 1,680,000',
+    status: 'Off-Plan',
+    delivery: 'Q1 2028',
+    featured: false,
+    developer: 'Azizi Developments',
+    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80',
+    link: 'https://www.propertyfinder.ae/en/buy/properties-for-sale.html',
+  },
+  {
+    id: 6,
+    title: 'Burj Azizi Tower',
+    location: 'Dubai, World Trade Centre, Trade Centre First',
+    category: 'Azizi',
+    type: 'Mixed',
+    beds: '1–5',
+    baths: null,
+    area: 'Multiple',
+    price: 'AED 9,331,000',
+    status: 'Off-Plan',
+    delivery: 'Q3 2030',
+    featured: true,
+    developer: 'Azizi Developments',
+    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80',
+    link: 'https://www.propertyfinder.ae/en/buy/properties-for-sale.html',
+  },
+  // ── Additional Azizi Projects ──
+  {
+    id: 7,
+    title: 'Azizi Creek Views',
+    location: 'Dubai Healthcare City, Al Jaddaf, Dubai',
+    category: 'Azizi',
+    type: 'Apartment',
+    beds: 'Studio–3',
+    baths: null,
+    area: 'Multiple',
+    price: 'AED 650,000',
+    status: 'Off-Plan',
+    delivery: 'Q4 2026',
+    featured: false,
+    developer: 'Azizi Developments',
+    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80',
+    link: 'https://www.propertyfinder.ae/en/buy/properties-for-sale.html',
+  },
+  {
+    id: 8,
+    title: 'Azizi Riviera Beachfront',
+    location: 'Meydan One, MBR City, Dubai',
+    category: 'Azizi',
+    type: 'Apartment',
+    beds: 'Studio–4',
+    baths: null,
+    area: 'Multiple',
+    price: 'AED 900,000',
+    status: 'Off-Plan',
+    delivery: 'Q2 2027',
+    featured: false,
+    developer: 'Azizi Developments',
+    image: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&q=80',
+    link: 'https://www.propertyfinder.ae/en/buy/properties-for-sale.html',
+  },
+  {
+    id: 9,
+    title: 'Azizi Grand',
+    location: 'Dubai Sports City, Dubai',
+    category: 'Azizi',
+    type: 'Apartment',
+    beds: 'Studio–3',
+    baths: null,
+    area: 'Multiple',
+    price: 'AED 450,000',
+    status: 'Ready',
+    delivery: 'Completed',
+    featured: false,
+    developer: 'Azizi Developments',
+    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80',
+    link: 'https://www.propertyfinder.ae/en/buy/properties-for-sale.html',
+  },
+  {
+    id: 10,
+    title: 'Azizi Mina',
+    location: 'Palm Jumeirah, Dubai',
+    category: 'Luxury',
+    type: 'Apartment',
+    beds: '1–4',
+    baths: null,
+    area: 'Multiple',
+    price: 'AED 2,300,000',
+    status: 'Ready',
+    delivery: 'Completed',
+    featured: true,
+    developer: 'Azizi Developments',
+    image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600&q=80',
+    link: 'https://www.propertyfinder.ae/en/buy/properties-for-sale.html',
+  },
+  {
+    id: 11,
+    title: 'Azizi Aliyah',
+    location: 'Dubai Healthcare City, Dubai',
+    category: 'Residential',
+    type: 'Apartment',
+    beds: 'Studio–2',
+    baths: null,
+    area: 'Multiple',
+    price: 'AED 550,000',
+    status: 'Ready',
+    delivery: 'Completed',
+    featured: false,
+    developer: 'Azizi Developments',
+    image: 'https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&q=80',
+    link: 'https://www.propertyfinder.ae/en/buy/properties-for-sale.html',
+  },
+  {
+    id: 12,
+    title: 'Azizi Star',
+    location: 'Al Furjan, Dubai',
+    category: 'Residential',
+    type: 'Apartment',
+    beds: 'Studio–3',
+    baths: null,
+    area: 'Multiple',
+    price: 'AED 480,000',
+    status: 'Ready',
+    delivery: 'Completed',
+    featured: false,
+    developer: 'Azizi Developments',
+    image: 'https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=600&q=80',
+    link: 'https://www.propertyfinder.ae/en/buy/properties-for-sale.html',
   },
 ];
 
@@ -149,8 +301,16 @@ export default function Projects() {
                   {project.status}
                 </span>
 
+                {/* Developer badge */}
+                {project.developer && (
+                  <span className="absolute top-3 right-3 text-[10px] font-bold px-2 py-1 rounded-full
+                    bg-primary/90 text-white backdrop-blur-sm">
+                    AZIZI
+                  </span>
+                )}
+
                 {/* Featured badge */}
-                {project.featured && (
+                {project.featured && !project.developer && (
                   <span className="absolute top-3 right-3 text-xs font-bold px-2.5 py-1 rounded-full
                     bg-primary/90 text-white backdrop-blur-sm flex items-center gap-1">
                     <MdStar size={11} className="text-gold" /> Featured
@@ -171,9 +331,14 @@ export default function Projects() {
                   </a>
                 </div>
 
-                {/* Price on image */}
+                {/* Price + delivery on image */}
                 <div className="absolute bottom-3 left-3">
                   <p className="text-white font-heading font-bold text-lg drop-shadow-md">{project.price}</p>
+                  {project.delivery && project.delivery !== 'Completed' && (
+                    <p className="text-white/80 text-xs font-medium mt-0.5">
+                      Delivery: {project.delivery}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -197,18 +362,20 @@ export default function Projects() {
                 {/* Specs */}
                 <div className="flex items-center gap-4 text-gray-500 text-xs mt-3 pt-3 border-t border-gray-100">
                   {project.beds && (
-                    <div className="flex items-center gap-1 hover:text-primary transition-colors">
+                    <div className="flex items-center gap-1">
                       <MdBed size={14} className="text-primary" /> {project.beds} Beds
                     </div>
                   )}
-                  {project.baths && (
-                    <div className="flex items-center gap-1 hover:text-primary transition-colors">
-                      <MdBathtub size={14} className="text-primary" /> {project.baths} Baths
+                  {project.area && project.area !== 'Multiple' && (
+                    <div className="flex items-center gap-1">
+                      <MdSquareFoot size={14} className="text-primary" /> {project.area} sqft
                     </div>
                   )}
-                  <div className="flex items-center gap-1 hover:text-primary transition-colors">
-                    <MdSquareFoot size={14} className="text-primary" /> {project.area} sqft
-                  </div>
+                  {project.developer && (
+                    <div className="flex items-center gap-1 text-primary font-semibold">
+                      By {project.developer}
+                    </div>
+                  )}
                 </div>
 
                 {/* Footer */}
