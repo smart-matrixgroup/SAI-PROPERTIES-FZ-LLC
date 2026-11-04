@@ -75,7 +75,7 @@ const projects = [
     featured: true,
     developer: 'Azizi Developments',
     highlights: "Sharjah's Largest Masterplan · 10,000+ Homes · 1.7M sqft Park · 30/70 Payment Plan",
-    image: 'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=600&q=80',
+    image: '/SAI-PROPERTIES-FZ-LLC/assets/azizi-img1.jpg',
     link: 'https://aziziflorence.com',
     isAzizi: true,
   },

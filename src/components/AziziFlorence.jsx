@@ -160,7 +160,7 @@ export default function AziziFlorence({ onClose }) {
       {/* ── Hero Banner ── */}
       <div className="relative h-72 sm:h-96 overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=1400&q=85"
+          src="/SAI-PROPERTIES-FZ-LLC/assets/azizi-img1.jpg"
           alt="Azizi Florence"
           className="w-full h-full object-cover"
         />

@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { MdVerified, MdHandshake, MdTrendingUp } from 'react-icons/md';
 import { FaBuilding, FaAward } from 'react-icons/fa';
 import vaikunthanImg from '../assets/vaikunthan.png';
+import aziziImg1 from '../assets/azizi-img1.jpg';
+import aziziImg2 from '../assets/azizi-img2.jpg';
 
 const stats = [
   { value: '200+', label: 'Properties Sold', icon: '🏠' },
@@ -115,8 +117,8 @@ export default function About() {
           <div className={`transition-all duration-700 delay-200 ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-16'}`}>
             <div className="grid grid-cols-2 gap-3">
               {[
-                { src: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&q=80', alt: 'Dubai property', mt: '' },
-                { src: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=80', alt: 'Luxury interior', mt: 'mt-6' },
+                { src: aziziImg1, alt: 'Azizi Florence Sharjah', mt: '' },
+                { src: aziziImg2, alt: 'Azizi Developments Project', mt: 'mt-6' },
                 { src: 'https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=400&q=80', alt: 'Modern apartment', mt: '' },
                 { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80', alt: 'Commercial', mt: 'mt-6' },
               ].map((img, i) => (
