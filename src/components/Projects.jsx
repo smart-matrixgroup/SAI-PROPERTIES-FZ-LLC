@@ -94,7 +94,7 @@ function useIntersection(ref, threshold = 0.05) {
   return visible;
 }
 
-export default function Projects() {
+export default function Projects({ onViewAzizi }) {
   const sectionRef = useRef(null);
   const visible = useIntersection(sectionRef);
   const [activeCategory, setActiveCategory] = useState('All');
@@ -183,12 +183,13 @@ export default function Projects() {
                 {/* Hover overlay */}
                 <div className="absolute inset-0 bg-primary/80 flex flex-col items-center justify-center gap-3
                   opacity-0 group-hover:opacity-100 transition-all duration-300 p-4">
-                  {project.link ? (
-                    <a href={project.link} target="_blank" rel="noreferrer"
+                  {project.developer ? (
+                    <button
+                      onClick={() => onViewAzizi && onViewAzizi()}
                       className="bg-white text-primary font-bold px-5 py-2.5 rounded-xl
                         flex items-center gap-2 hover:bg-gold hover:text-white transition-colors shadow-lg text-sm">
-                      View Project <MdArrowForward size={16} />
-                    </a>
+                      View Details <MdArrowForward size={16} />
+                    </button>
                   ) : null}
                   <a href="#contact"
                     onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}

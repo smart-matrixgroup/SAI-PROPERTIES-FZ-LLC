@@ -8,28 +8,36 @@ import Projects from './components/Projects';
 import VideoSection from './components/VideoSection';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import AziziFlorence from './components/AziziFlorence';
 
 export default function App() {
   const [entered, setEntered] = useState(false);
+  const [showAzizi, setShowAzizi] = useState(false);
 
   return (
     <div className="min-h-screen">
-      {/* Intro splash — shown until user clicks Enter */}
       {!entered && <Intro onEnter={() => setEntered(true)} />}
 
-      {/* Main site — always rendered but hidden behind intro */}
       <div className={`transition-opacity duration-700 ${entered ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         <Navbar />
         <main>
           <Hero />
           <About />
           <Services />
-          <Projects />
+          <Projects onViewAzizi={() => setShowAzizi(true)} />
           <VideoSection />
           <Contact />
         </main>
         <Footer />
       </div>
+
+      {/* Azizi Florence Detail Page */}
+      {showAzizi && (
+        <AziziFlorence onClose={() => {
+          setShowAzizi(false);
+          document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+        }} />
+      )}
     </div>
   );
 }
