@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { MdLocationOn, MdBed, MdSquareFoot, MdArrowForward, MdStar } from 'react-icons/md';
+import pfImg1 from '../assets/pf-img1.jpg';
+import pfImg2 from '../assets/pf-img2.jpg';
+import pfImg3 from '../assets/pf-img3.jpg';
+import aziziImg1 from '../assets/azizi-img1.jpg';
+import aziziImg2 from '../assets/azizi-img2.jpg';
 
 const categories = ['All', 'Residential', 'Commercial', 'Luxury', 'Off-Plan', 'Azizi'];
 
@@ -75,7 +80,7 @@ const projects = [
     featured: true,
     developer: 'Azizi Developments',
     highlights: "Sharjah's Largest Masterplan · 10,000+ Homes · 1.7M sqft Park · 30/70 Payment Plan",
-    image: '/SAI-PROPERTIES-FZ-LLC/assets/azizi-img1.jpg',
+    image: aziziImg1,
     link: 'https://aziziflorence.com',
     isAzizi: true,
   },
@@ -93,7 +98,7 @@ const projects = [
     featured: true,
     developer: 'Azizi Developments',
     highlights: "World's 2nd Tallest Tower · 725m Height · 131+ Floors · 7-Star Hotel · 1,047 Residences",
-    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80',
+    image: pfImg1,
     link: 'https://www.azizidevelopments.com/en',
   },
   {
@@ -110,7 +115,7 @@ const projects = [
     featured: false,
     developer: 'Azizi Developments',
     highlights: 'Crystal Lagoon Community · 36,000+ Units · Opera House · Waterfront Boulevard',
-    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80',
+    image: pfImg2,
     link: 'https://www.azizidevelopments.com/dubai/dubai-south/azizi-venice',
   },
   {
@@ -127,7 +132,7 @@ const projects = [
     featured: false,
     developer: 'Azizi Developments',
     highlights: 'Mediterranean Community · 75 Buildings · Crystal Lagoon · Retail Boulevard · 5-Star Hotel',
-    image: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=600&q=80',
+    image: pfImg3,
     link: 'https://www.azizidevelopments.com/dubai/meydan/riviera-beachfront',
   },
   {
@@ -144,7 +149,7 @@ const projects = [
     featured: false,
     developer: 'Azizi Developments',
     highlights: 'Panoramic Creek Views · Modern Finishes · Healthcare City · Near Downtown Dubai',
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80',
+    image: aziziImg2,
     link: 'https://www.azizidevelopments.com/dubai/dubai-healthcare-city/creek-views-III',
   },
   {

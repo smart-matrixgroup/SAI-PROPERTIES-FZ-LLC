@@ -3,6 +3,8 @@ import { MdLocationOn, MdApartment, MdPark, MdPool, MdSchool,
   MdLocalMall, MdArrowForward, MdClose, MdCheckCircle } from 'react-icons/md';
 import { FaBuilding, FaTree, FaRoad, FaPlane, FaMosque,
   FaSwimmingPool, FaShoppingCart, FaWhatsapp } from 'react-icons/fa';
+import aziziImg1 from '../assets/azizi-img1.jpg';
+import pfImg1 from '../assets/pf-img1.jpg';
 
 // ── Data from aziziflorence.com (official public website) ──
 const stats = [
@@ -160,7 +162,7 @@ export default function AziziFlorence({ onClose }) {
       {/* ── Hero Banner ── */}
       <div className="relative h-72 sm:h-96 overflow-hidden">
         <img
-          src="/SAI-PROPERTIES-FZ-LLC/assets/azizi-img1.jpg"
+          src={aziziImg1}
           alt="Azizi Florence"
           className="w-full h-full object-cover"
         />

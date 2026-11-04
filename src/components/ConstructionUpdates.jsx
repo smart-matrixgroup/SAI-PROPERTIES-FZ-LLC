@@ -2,6 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { MdConstruction, MdArrowForward, MdCheckCircle,
   MdSchedule, MdLocationOn, MdOpenInNew } from 'react-icons/md';
 import { FaHardHat, FaBuilding } from 'react-icons/fa';
+import pfImg1 from '../assets/pf-img1.jpg';
+import pfImg2 from '../assets/pf-img2.jpg';
+import pfImg3 from '../assets/pf-img3.jpg';
+import aziziImg1 from '../assets/azizi-img1.jpg';
+import aziziImg2 from '../assets/azizi-img2.jpg';
 
 // ── Construction update data (sourced from public news & azizidevelopments.com) ──
 const updates = [
@@ -16,7 +21,7 @@ const updates = [
     update: 'As of May 2026: Raft foundation & 9-basement automated car park underway with ~750 workers on site daily. Extensive foundation & structural work progressing. Tower to reach 725m — world\'s 2nd tallest.',
     date: 'Oct 2026',
     link: 'https://www.azizidevelopments.com/en',
-    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80',
+    image: pfImg1,
     tag: 'Live Update',
   },
   {
@@ -30,7 +35,7 @@ const updates = [
     update: '24/7 round-the-clock construction schedule. 1,503 homes sold in August 2026 alone (13.5% of all Dubai home sales). Won Best Luxury Residential Development — Luxury Lifestyle Awards 2025.',
     date: 'Oct 2026',
     link: 'https://www.azizidevelopments.com/dubai/dubai-south/azizi-venice',
-    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80',
+    image: pfImg2,
     tag: 'Live Update',
   },
   {
@@ -44,7 +49,7 @@ const updates = [
     update: 'Official milestone: 58% construction complete. Mediterranean-inspired community advancing rapidly with KONE elevator installations underway across multiple buildings.',
     date: 'Sep 2026',
     link: 'https://www.azizidevelopments.com/dubai/meydan/riviera-beachfront',
-    image: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=600&q=80',
+    image: pfImg3,
     tag: '58% Complete',
   },
   {
@@ -58,7 +63,7 @@ const updates = [
     update: 'KONE elevator systems being installed. Panoramic Creek Views III advancing in Dubai Healthcare City. Modern finishes and premium interiors taking shape.',
     date: 'Sep 2026',
     link: 'https://www.azizidevelopments.com/dubai/dubai-healthcare-city/creek-views-III',
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80',
+    image: aziziImg1,
     tag: null,
   },
   {
@@ -72,7 +77,7 @@ const updates = [
     update: 'Advancing rapidly alongside Riviera Beachfront. Hotel-inspired luxury development with KONE elevator integration confirmed. Infinity pool & five-star amenities installation in progress.',
     date: 'Sep 2026',
     link: 'https://www.azizidevelopments.com/Dubai/meydan/riviera-reve',
-    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80',
+    image: aziziImg2,
     tag: null,
   },
   {
