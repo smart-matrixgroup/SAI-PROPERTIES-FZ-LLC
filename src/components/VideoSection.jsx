@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { MdPlayArrow, MdOpenInNew } from 'react-icons/md';
+import { MdPlayArrow } from 'react-icons/md';
 import { FaFacebook, FaYoutube, FaPlay } from 'react-icons/fa';
 
-// ── YouTube Videos — embed directly ──
 const youtubeVideos = [
   {
     id: 'yt1',
@@ -13,7 +12,6 @@ const youtubeVideos = [
   },
 ];
 
-// ── Facebook Reels — open in Facebook (mobile compatible) ──
 const facebookReels = [
   {
     id: 'fb1',
@@ -61,11 +59,12 @@ function useIntersection(ref, threshold = 0.1) {
 }
 
 export default function VideoSection() {
-  const sectionRef    = useRef(null);
-  const visible       = useIntersection(sectionRef);
-  const [activeIdx, setActiveIdx] = useState(0);
-  const [ytPlaying, setYtPlaying] = useState(false); // show YT iframe only on click
-  const [tab, setTab] = useState('all');
+  const sectionRef = useRef(null);
+  const visible    = useIntersection(sectionRef);
+  const [activeIdx,  setActiveIdx]  = useState(0);
+  const [playing,    setPlaying]    = useState(false); // show iframe only after tap
+  const [tab,        setTab]        = useState('all');
+  const [fbLoaded,   setFbLoaded]   = useState(false);
 
   const filtered = tab === 'youtube'
     ? allVideos.filter(v => v.source === 'youtube')
@@ -73,15 +72,39 @@ export default function VideoSection() {
       ? allVideos.filter(v => v.source === 'facebook')
       : allVideos;
 
-  useEffect(() => { setActiveIdx(0); setYtPlaying(false); }, [tab]);
+  useEffect(() => { setActiveIdx(0); setPlaying(false); setFbLoaded(false); }, [tab]);
+
+  const handleSelect = (i) => {
+    setActiveIdx(i);
+    setPlaying(false);
+    setFbLoaded(false);
+  };
 
   const activeVideo = filtered[activeIdx] ?? allVideos[0];
 
-  // When user changes active video reset play state
-  const handleSelect = (i) => {
-    setActiveIdx(i);
-    setYtPlaying(false);
-  };
+  // ── Facebook SDK inject (once) ──
+  useEffect(() => {
+    if (document.getElementById('facebook-jssdk')) return;
+    // Inject FB SDK
+    const script = document.createElement('script');
+    script.id  = 'facebook-jssdk';
+    script.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0';
+    script.async = true;
+    script.defer = true;
+    script.crossOrigin = 'anonymous';
+    document.body.appendChild(script);
+    // Init FB after load
+    window.fbAsyncInit = function () {
+      if (window.FB) window.FB.init({ xfbml: true, version: 'v18.0' });
+    };
+  }, []);
+
+  // Re-parse FB embeds when active video changes to facebook
+  useEffect(() => {
+    if (playing && activeVideo.source === 'facebook' && window.FB) {
+      setTimeout(() => window.FB.XFBML?.parse(), 300);
+    }
+  }, [playing, activeVideo]);
 
   return (
     <section ref={sectionRef} className="py-14 sm:py-20 md:py-28 bg-primary-dark overflow-hidden">
@@ -104,12 +127,12 @@ export default function VideoSection() {
           <div className="flex items-center justify-center gap-4 mt-3">
             <a href="https://www.youtube.com/@AziziDevelopments"
               target="_blank" rel="noreferrer"
-              className="flex items-center gap-1 text-red-400 text-xs font-semibold">
+              className="flex items-center gap-1 text-red-400 text-xs font-semibold hover:text-red-300 transition-colors">
               <FaYoutube size={14} /> YouTube
             </a>
             <a href="https://www.facebook.com/AziziGroup/videos"
               target="_blank" rel="noreferrer"
-              className="flex items-center gap-1 text-blue-400 text-xs font-semibold">
+              className="flex items-center gap-1 text-blue-400 text-xs font-semibold hover:text-blue-300 transition-colors">
               <FaFacebook size={13} /> Facebook
             </a>
           </div>
@@ -130,7 +153,7 @@ export default function VideoSection() {
                 text-xs font-bold transition-all duration-300 border
                 ${tab === t.key
                   ? 'bg-gold text-white border-gold shadow-lg'
-                  : 'bg-white/5 text-white/60 border-white/10'
+                  : 'bg-white/5 text-white/60 border-white/10 hover:border-white/30'
                 }`}>
               {t.icon}{t.label}
               <span className="text-[10px] px-1 py-0.5 rounded-full bg-white/20">
@@ -140,13 +163,14 @@ export default function VideoSection() {
           ))}
         </div>
 
-        {/* ── Main player + Sidebar ── */}
+        {/* ── Player + Sidebar ── */}
         <div className={`grid grid-cols-1 lg:grid-cols-3 gap-5 transition-all duration-700
           ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
 
           {/* ── MAIN PLAYER ── */}
           <div className="lg:col-span-2">
-            {/* Source badge */}
+
+            {/* Source + tag badges */}
             <div className="flex items-center gap-2 mb-2">
               {activeVideo.source === 'youtube' ? (
                 <span className="flex items-center gap-1 bg-red-600/20 text-red-400
@@ -165,123 +189,123 @@ export default function VideoSection() {
               </span>
             </div>
 
-            {/* Player area */}
-            <div className="relative rounded-2xl overflow-hidden bg-black
-              ring-1 ring-white/10 shadow-2xl" style={{ paddingBottom: '56.25%' }}>
+            {/* ════════════ PLAYER BOX ════════════ */}
+            <div className="relative rounded-2xl overflow-hidden bg-black ring-1 ring-white/10 shadow-2xl"
+              style={{ paddingBottom: '56.25%' }}>
 
-              {/* ── YOUTUBE — embed on play ── */}
+              {/* ── YOUTUBE ── */}
               {activeVideo.source === 'youtube' && (
-                <>
-                  {!ytPlaying ? (
-                    /* Thumbnail + play button */
-                    <div className="absolute inset-0 cursor-pointer group"
-                      onClick={() => setYtPlaying(true)}>
-                      <img
-                        src={activeVideo.thumb}
-                        alt={activeVideo.tag}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-black/40
-                        group-hover:bg-black/30 transition-colors flex items-center justify-center">
-                        <div className="w-16 h-16 sm:w-20 sm:h-20 bg-red-600 rounded-full
-                          flex items-center justify-center shadow-2xl
-                          group-hover:scale-110 transition-transform duration-300">
-                          <FaPlay className="text-white ml-1" size={22} />
-                        </div>
-                      </div>
-                      <div className="absolute bottom-3 left-3 right-3">
-                        <p className="text-white font-bold text-sm sm:text-base drop-shadow">
-                          {activeVideo.tag}
-                        </p>
-                        <p className="text-white/60 text-xs flex items-center gap-1 mt-0.5">
-                          <FaYoutube size={10} className="text-red-400" /> Tap to play
-                        </p>
+                !playing ? (
+                  /* Thumbnail + big play button */
+                  <div className="absolute inset-0 cursor-pointer group"
+                    onClick={() => setPlaying(true)}>
+                    <img src={activeVideo.thumb} alt={activeVideo.tag}
+                      className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/25
+                      transition-colors flex items-center justify-center">
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 bg-red-600 rounded-full
+                        flex items-center justify-center shadow-2xl
+                        group-hover:scale-110 transition-transform duration-300">
+                        <FaPlay className="text-white ml-1" size={22} />
                       </div>
                     </div>
-                  ) : (
-                    /* YouTube iframe — loads only after tap */
-                    <iframe
-                      className="absolute inset-0 w-full h-full"
-                      src={`https://www.youtube.com/embed/${activeVideo.videoId}?autoplay=1&rel=0&modestbranding=1`}
-                      title={activeVideo.tag}
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                    />
-                  )}
-                </>
-              )}
-
-              {/* ── FACEBOOK — thumbnail + open button ── */}
-              {activeVideo.source === 'facebook' && (
-                <div className="absolute inset-0">
-                  <img
-                    src={activeVideo.thumb}
-                    alt={activeVideo.tag}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/50 flex flex-col
-                    items-center justify-center gap-4 px-6">
-                    {/* Facebook play info */}
-                    <div className="text-center">
-                      <div className="w-16 h-16 sm:w-20 sm:h-20 bg-blue-600 rounded-full
-                        flex items-center justify-center shadow-2xl mx-auto mb-3">
-                        <FaFacebook className="text-white" size={28} />
-                      </div>
-                      <p className="text-white font-bold text-sm sm:text-base mb-1">
+                    <div className="absolute bottom-3 left-3">
+                      <p className="text-white font-bold text-sm drop-shadow">
                         {activeVideo.tag}
                       </p>
-                      <p className="text-white/60 text-xs mb-4">
-                        Facebook Reel — Opens in Facebook app / browser
+                      <p className="text-white/60 text-xs flex items-center gap-1 mt-0.5">
+                        <FaYoutube size={10} className="text-red-400" /> Tap to play
                       </p>
                     </div>
-                    {/* Open in Facebook button */}
-                    <a
-                      href={`https://www.facebook.com/reel/${activeVideo.videoId}`}
-                      target="_blank" rel="noreferrer"
-                      className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700
-                        text-white px-6 py-3 rounded-xl font-bold text-sm
-                        transition-all duration-300 hover:shadow-lg shadow-md"
-                    >
-                      <FaFacebook size={16} />
-                      Watch on Facebook
-                      <MdOpenInNew size={14} />
-                    </a>
-                    <p className="text-white/30 text-xs text-center">
-                      Facebook videos require login to play inline
-                    </p>
                   </div>
-                </div>
+                ) : (
+                  /* YouTube iframe — loads after tap */
+                  <iframe
+                    className="absolute inset-0 w-full h-full"
+                    src={`https://www.youtube.com/embed/${activeVideo.videoId}?autoplay=1&rel=0&modestbranding=1`}
+                    title={activeVideo.tag}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                )
+              )}
+
+              {/* ── FACEBOOK — FB XFBML embed (plays inside site) ── */}
+              {activeVideo.source === 'facebook' && (
+                !playing ? (
+                  /* Thumbnail + play button */
+                  <div className="absolute inset-0 cursor-pointer group"
+                    onClick={() => setPlaying(true)}>
+                    <img src={activeVideo.thumb} alt={activeVideo.tag}
+                      className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-black/45 group-hover:bg-black/30
+                      transition-colors flex items-center justify-center">
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 bg-blue-600 rounded-full
+                        flex items-center justify-center shadow-2xl
+                        group-hover:scale-110 transition-transform duration-300">
+                        <FaFacebook className="text-white" size={26} />
+                      </div>
+                    </div>
+                    <div className="absolute bottom-3 left-3">
+                      <p className="text-white font-bold text-sm drop-shadow">
+                        {activeVideo.tag}
+                      </p>
+                      <p className="text-white/60 text-xs flex items-center gap-1 mt-0.5">
+                        <FaFacebook size={10} className="text-blue-400" /> Tap to play
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  /* Facebook embed — fills the box */
+                  <div className="absolute inset-0 w-full h-full bg-black
+                    flex items-center justify-center overflow-hidden">
+                    {!fbLoaded && (
+                      <div className="absolute inset-0 flex items-center justify-center z-10 bg-black">
+                        <div className="w-10 h-10 border-2 border-blue-400/30
+                          border-t-blue-400 rounded-full animate-spin" />
+                      </div>
+                    )}
+                    {/* FB iframe embed — most reliable cross-browser method */}
+                    <iframe
+                      src={`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F${activeVideo.videoId}&show_text=false&width=560&height=315&appId`}
+                      width="100%"
+                      height="100%"
+                      style={{ border: 'none', overflow: 'hidden', display: 'block' }}
+                      scrolling="no"
+                      frameBorder="0"
+                      allowFullScreen
+                      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                      title={activeVideo.tag}
+                      onLoad={() => setFbLoaded(true)}
+                    />
+                  </div>
+                )
               )}
             </div>
+            {/* ═══════════════════════════════════ */}
 
-            {/* External link */}
-            <div className="mt-2 flex justify-end">
-              {activeVideo.source === 'youtube' ? (
-                <a href={`https://youtu.be/${activeVideo.videoId}`}
-                  target="_blank" rel="noreferrer"
-                  className="flex items-center gap-1 text-red-400 text-xs font-semibold">
-                  <FaYoutube size={12} /> Watch on YouTube
-                </a>
-              ) : (
+            {/* Note for Facebook */}
+            {activeVideo.source === 'facebook' && playing && (
+              <p className="text-white/30 text-xs mt-2 text-center">
+                Facebook video plays inside this page ·{' '}
                 <a href={`https://www.facebook.com/reel/${activeVideo.videoId}`}
                   target="_blank" rel="noreferrer"
-                  className="flex items-center gap-1 text-blue-400 text-xs font-semibold">
-                  <FaFacebook size={11} /> Open in Facebook
+                  className="text-blue-400 hover:underline">
+                  Open in Facebook
                 </a>
-              )}
-            </div>
+              </p>
+            )}
           </div>
 
-          {/* ── SIDEBAR / MOBILE GRID ── */}
+          {/* ── SIDEBAR / MOBILE HORIZONTAL GRID ── */}
           <div className="lg:col-span-1">
             <p className="text-white/50 text-xs uppercase tracking-widest font-semibold mb-3 px-1">
               {filtered.length} Video{filtered.length !== 1 ? 's' : ''}
             </p>
 
-            {/* Mobile: horizontal scroll grid | Desktop: vertical list */}
-            <div className="flex gap-3 overflow-x-auto pb-2 lg:flex-col lg:overflow-visible
-              lg:space-y-3 lg:max-h-[400px] lg:overflow-y-auto
+            <div className="flex gap-3 overflow-x-auto pb-2
+              lg:flex-col lg:overflow-visible lg:space-y-3 lg:max-h-[420px] lg:overflow-y-auto
               scrollbar-none lg:pr-1">
               {filtered.map((video, i) => (
                 <button
@@ -294,16 +318,13 @@ export default function VideoSection() {
                       : 'border-white/10 hover:border-white/30'
                     }`}
                 >
-                  {/* Thumbnail */}
-                  <div className="relative bg-gray-900"
-                    style={{ paddingBottom: '56.25%' }}>
+                  <div className="relative bg-gray-900" style={{ paddingBottom: '56.25%' }}>
                     <img
                       src={video.thumb}
                       alt={video.tag}
                       className="absolute inset-0 w-full h-full object-cover"
                       loading="lazy"
                     />
-                    {/* Overlay */}
                     {filtered[activeIdx]?.id !== video.id && (
                       <div className="absolute inset-0 bg-black/45 flex items-center justify-center
                         group-hover:bg-black/25 transition-colors">
@@ -313,14 +334,12 @@ export default function VideoSection() {
                         </div>
                       </div>
                     )}
-                    {/* Playing badge */}
                     {filtered[activeIdx]?.id === video.id && (
                       <div className="absolute top-1.5 left-1.5 bg-gold text-white
                         text-[9px] font-bold px-1.5 py-0.5 rounded-full">
                         ▶ Playing
                       </div>
                     )}
-                    {/* Source badge */}
                     <div className={`absolute top-1.5 right-1.5 text-[9px] font-bold
                       px-1.5 py-0.5 rounded-full
                       ${video.source === 'youtube'
@@ -330,8 +349,6 @@ export default function VideoSection() {
                       {video.source === 'youtube' ? 'YT' : 'FB'}
                     </div>
                   </div>
-
-                  {/* Label */}
                   <div className="p-2 bg-primary-dark">
                     <p className="text-white/80 text-[11px] font-semibold leading-tight">
                       {video.tag}
