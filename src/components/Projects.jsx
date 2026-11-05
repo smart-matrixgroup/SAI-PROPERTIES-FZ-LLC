@@ -6,66 +6,10 @@ import pfImg3 from '../assets/pf-img3.jpg';
 import aziziImg1 from '../assets/azizi-img1.jpg';
 import aziziImg2 from '../assets/azizi-img2.jpg';
 
-const categories = ['All', 'Residential', 'Commercial', 'Luxury', 'Off-Plan', 'Azizi'];
+const categories = ['All', 'Off-Plan', 'Ready', 'Luxury', 'Azizi'];
 
 const projects = [
-  // ── Original SAI Properties Projects ──
-  {
-    id: 1, title: 'Marina Heights', location: 'Dubai Marina, UAE',
-    category: 'Luxury', type: 'Apartment', beds: 3, baths: 2, area: '1,850',
-    price: 'AED 2.8M', status: 'Ready', delivery: 'Completed', featured: true,
-    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80',
-  },
-  {
-    id: 2, title: 'Palm Grove Villas', location: 'Palm Jumeirah, UAE',
-    category: 'Luxury', type: 'Villa', beds: 5, baths: 4, area: '4,200',
-    price: 'AED 8.5M', status: 'Ready', delivery: 'Completed', featured: true,
-    image: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&q=80',
-  },
-  {
-    id: 3, title: 'Downtown Business Hub', location: 'Downtown Dubai, UAE',
-    category: 'Commercial', type: 'Office', beds: null, baths: null, area: '3,500',
-    price: 'AED 5.2M', status: 'Ready', delivery: 'Completed', featured: false,
-    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80',
-  },
-  {
-    id: 4, title: 'Creek View Residences', location: 'Dubai Creek Harbour, UAE',
-    category: 'Off-Plan', type: 'Apartment', beds: 2, baths: 2, area: '1,200',
-    price: 'AED 1.6M', status: 'Off-Plan', delivery: 'Q2 2026', featured: false,
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80',
-  },
-  {
-    id: 5, title: 'Deira Gold Towers', location: 'Deira, Dubai, UAE',
-    category: 'Commercial', type: 'Retail', beds: null, baths: null, area: '2,100',
-    price: 'AED 3.1M', status: 'Ready', delivery: 'Completed', featured: false,
-    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80',
-  },
-  {
-    id: 6, title: 'Emaar Suburban Homes', location: 'Arabian Ranches, UAE',
-    category: 'Residential', type: 'Villa', beds: 4, baths: 3, area: '3,100',
-    price: 'AED 4.4M', status: 'Ready', delivery: 'Completed', featured: false,
-    image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600&q=80',
-  },
-  {
-    id: 7, title: 'Sports City Apartments', location: 'Dubai Sports City, UAE',
-    category: 'Residential', type: 'Apartment', beds: 1, baths: 1, area: '750',
-    price: 'AED 650K', status: 'Ready', delivery: 'Completed', featured: false,
-    image: 'https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&q=80',
-  },
-  {
-    id: 8, title: 'Harbour Square Towers', location: 'Business Bay, UAE',
-    category: 'Off-Plan', type: 'Apartment', beds: 2, baths: 2, area: '1,100',
-    price: 'AED 1.9M', status: 'Off-Plan', delivery: 'Q4 2026', featured: false,
-    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80',
-  },
-  {
-    id: 9, title: 'JBR Beachfront Suites', location: 'Jumeirah Beach, UAE',
-    category: 'Luxury', type: 'Apartment', beds: 3, baths: 3, area: '2,200',
-    price: 'AED 4.2M', status: 'Ready', delivery: 'Completed', featured: false,
-    image: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=600&q=80',
-  },
-
-  // ── Azizi Developments (Official Data) ──
+  // ── Azizi Developments — All Official Projects ──
   {
     id: 10,
     title: 'Azizi Florence',
@@ -97,7 +41,7 @@ const projects = [
     delivery: 'Q4 2028',
     featured: true,
     developer: 'Azizi Developments',
-    highlights: "World's 2nd Tallest Tower · 725m Height · 131+ Floors · 7-Star Hotel · 1,047 Residences",
+    highlights: "World's 2nd Tallest Tower · 725m · 131+ Floors · 7-Star Hotel · 1,047 Residences",
     image: pfImg1,
     link: 'https://www.azizidevelopments.com/en',
   },
@@ -114,7 +58,7 @@ const projects = [
     delivery: 'Q4 2026',
     featured: false,
     developer: 'Azizi Developments',
-    highlights: 'Crystal Lagoon Community · 36,000+ Units · Opera House · Waterfront Boulevard',
+    highlights: 'Crystal Lagoon · 36,000+ Units · Opera House · Waterfront Boulevard',
     image: pfImg2,
     link: 'https://www.azizidevelopments.com/dubai/dubai-south/azizi-venice',
   },
@@ -131,14 +75,14 @@ const projects = [
     delivery: 'Q4 2027',
     featured: false,
     developer: 'Azizi Developments',
-    highlights: 'Mediterranean Community · 75 Buildings · Crystal Lagoon · Retail Boulevard · 5-Star Hotel',
+    highlights: 'Mediterranean Community · 75 Buildings · Crystal Lagoon · 5-Star Hotel',
     image: pfImg3,
     link: 'https://www.azizidevelopments.com/dubai/meydan/riviera-beachfront',
   },
   {
     id: 14,
     title: 'Azizi Creek Views III',
-    location: 'Dubai Healthcare City, Al Jaddaf, Dubai',
+    location: 'Dubai Healthcare City, Al Jaddaf',
     category: 'Azizi',
     type: 'Apartment',
     beds: 'Studio–3',
@@ -148,7 +92,7 @@ const projects = [
     delivery: 'Q3 2027',
     featured: false,
     developer: 'Azizi Developments',
-    highlights: 'Panoramic Creek Views · Modern Finishes · Healthcare City · Near Downtown Dubai',
+    highlights: 'Panoramic Creek Views · Modern Finishes · Near Downtown Dubai',
     image: aziziImg2,
     link: 'https://www.azizidevelopments.com/dubai/dubai-healthcare-city/creek-views-III',
   },
@@ -165,15 +109,15 @@ const projects = [
     delivery: 'Q2 2027',
     featured: false,
     developer: 'Azizi Developments',
-    highlights: '5-Star Hotel-Inspired Design · Infinity Pool · Crystal Lagoon · Retail Boulevard',
-    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80',
+    highlights: '5-Star Hotel-Inspired · Infinity Pool · Crystal Lagoon · Retail Boulevard',
+    image: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=600&q=80',
     link: 'https://www.azizidevelopments.com/Dubai/meydan/riviera-reve',
   },
   {
     id: 16,
     title: 'Azizi Mina',
     location: 'Palm Jumeirah, Dubai',
-    category: 'Azizi',
+    category: 'Luxury',
     type: 'Apartment / Penthouse',
     beds: '1–4',
     area: '700–3,500',
@@ -182,7 +126,7 @@ const projects = [
     delivery: 'Completed',
     featured: true,
     developer: 'Azizi Developments',
-    highlights: '178 Apartments · 4 Penthouses · Beachfront · 5-Star Hotels Nearby · Ready to Move',
+    highlights: '178 Apartments · 4 Penthouses · Beachfront · Ready to Move',
     image: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&q=80',
     link: 'https://www.azizidevelopments.com/dubai/palm-jumeirah/mina',
   },
@@ -190,7 +134,7 @@ const projects = [
     id: 17,
     title: 'Azizi Royal Bay',
     location: 'Palm Jumeirah, Dubai',
-    category: 'Azizi',
+    category: 'Luxury',
     type: 'Apartment / Penthouse',
     beds: '1–4',
     area: '700–4,000',
@@ -199,7 +143,7 @@ const projects = [
     delivery: 'Completed',
     featured: false,
     developer: 'Azizi Developments',
-    highlights: '90 Units · 2 Penthouses · Sea Views · Private Beach · Gym & Pool · 45° Rotation Design',
+    highlights: '90 Units · Sea Views · Private Beach · Gym & Pool',
     image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80',
     link: 'https://www.azizidevelopments.com/Dubai/palm-jumeirah/royal-bay',
   },
@@ -246,12 +190,12 @@ export default function Projects({ onViewAzizi }) {
         {/* Header */}
         <div className={`text-center mb-12 transition-all duration-700
           ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <p className="section-subtitle">Our Portfolio</p>
+          <p className="section-subtitle">Azizi Developments</p>
           <h2 className="section-title mb-4">Featured Projects & Properties</h2>
           <div className="gold-divider mx-auto mb-5" />
           <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            Explore our handpicked selection of premium properties across UAE —
-            from beachfront residences to high-yield commercial investments.
+            Explore premium Azizi Developments properties across UAE —
+            from beachfront Palm Jumeirah residences to mega masterplan communities.
           </p>
         </div>
 
