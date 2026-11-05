@@ -59,6 +59,14 @@ function useIntersection(ref, threshold = 0.15) {
 export default function About() {
   const sectionRef = useRef(null);
   const visible = useIntersection(sectionRef);
+  const [lightbox, setLightbox] = useState(null); // lightbox open image
+
+  const images = [
+    { src: aziziImg1, alt: 'Azizi Florence Sharjah', mt: '' },
+    { src: aziziImg2, alt: 'Azizi Developments Project', mt: 'mt-6' },
+    { src: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&q=80', alt: 'Dubai Skyline', mt: '' },
+    { src: 'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=800&q=80', alt: 'Azizi Community', mt: 'mt-6' },
+  ];
 
   return (
     <section id="about" ref={sectionRef} className="py-20 md:py-28 bg-white overflow-hidden">
@@ -91,16 +99,11 @@ export default function About() {
             {/* Manager highlight card */}
             <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-sky to-blue-50 rounded-2xl
               border border-primary/10 hover:border-gold/40 hover:shadow-lg transition-all duration-300 group">
-              {/* Profile photo */}
               <div className="relative flex-shrink-0">
                 <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-gold ring-offset-2
                   group-hover:ring-4 transition-all duration-300">
-                  <img
-                    src={vaikunthanImg}
-                    alt="K. Vaikunthan"
-                    className="w-full h-full object-cover"
-                    style={{ objectPosition: '50% 15%' }}
-                  />
+                  <img src={vaikunthanImg} alt="K. Vaikunthan"
+                    className="w-full h-full object-cover" style={{ objectPosition: '50% 15%' }} />
                 </div>
                 <span className="absolute bottom-0 right-0 w-4 h-4 bg-green-400 rounded-full border-2 border-white animate-pulse" />
               </div>
@@ -113,29 +116,31 @@ export default function About() {
             </div>
           </div>
 
-          {/* Right: Staggered image grid */}
+          {/* Right: Clickable image grid */}
           <div className={`transition-all duration-700 delay-200 ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-16'}`}>
             <div className="grid grid-cols-2 gap-3">
-              {[
-                { src: aziziImg1, alt: 'Azizi Florence Sharjah', mt: '' },
-                { src: aziziImg2, alt: 'Azizi Developments Project', mt: 'mt-6' },
-                { src: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80', alt: 'Dubai Skyline', mt: '' },
-                { src: 'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=400&q=80', alt: 'Azizi Community', mt: 'mt-6' },
-              ].map((img, i) => (
+              {images.map((img, i) => (
                 <div key={i}
-                  className={`${img.mt} overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-500
-                    hover:-translate-y-1 hover:scale-[1.02] group`}
+                  className={`${img.mt} overflow-hidden rounded-xl shadow-md hover:shadow-xl
+                    transition-all duration-300 cursor-pointer group relative`}
                   style={{ transitionDelay: `${i * 80}ms` }}
+                  onClick={() => setLightbox(img)}
                 >
-                  <img
-                    src={img.src}
-                    alt={img.alt}
+                  <img src={img.src} alt={img.alt}
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
+                    loading="lazy" />
+                  {/* Tap to enlarge hint */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20
+                    transition-colors duration-300 flex items-center justify-center">
+                    <span className="opacity-0 group-hover:opacity-100 bg-white/90 text-primary
+                      text-xs font-bold px-3 py-1.5 rounded-full transition-opacity duration-300">
+                      🔍 Tap to enlarge
+                    </span>
+                  </div>
                 </div>
               ))}
             </div>
+            <p className="text-center text-gray-400 text-xs mt-3">Tap any image to enlarge</p>
           </div>
         </div>
 
@@ -143,13 +148,10 @@ export default function About() {
         <div className={`grid grid-cols-2 md:grid-cols-4 gap-5 mb-20 transition-all duration-700 delay-300
           ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {stats.map((stat, i) => (
-            <div
-              key={i}
+            <div key={i}
               className="text-center p-6 bg-primary rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1
                 transition-all duration-300 group relative overflow-hidden"
-              style={{ transitionDelay: `${300 + i * 80}ms` }}
-            >
-              {/* Glow bg */}
+              style={{ transitionDelay: `${300 + i * 80}ms` }}>
               <div className="absolute inset-0 bg-gradient-to-br from-primary-light/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <p className="text-2xl mb-1">{stat.icon}</p>
               <p className="text-3xl md:text-4xl font-heading font-bold text-gold mb-1 relative">{stat.value}</p>
@@ -167,20 +169,16 @@ export default function About() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {values.map((v, i) => (
-              <div
-                key={i}
+              <div key={i}
                 className={`p-6 rounded-2xl border-2 border-gray-100 hover:border-transparent
-                  hover:shadow-xl ${v.glow} hover:-translate-y-2
-                  transition-all duration-400 group cursor-default`}
-                style={{ transitionDelay: `${400 + i * 80}ms` }}
-              >
-                <div className={`w-13 h-13 w-12 h-12 ${v.color} text-white rounded-2xl flex items-center justify-center mb-5
+                  hover:shadow-xl ${v.glow} hover:-translate-y-2 transition-all duration-400 group cursor-default`}
+                style={{ transitionDelay: `${400 + i * 80}ms` }}>
+                <div className={`w-12 h-12 ${v.color} text-white rounded-2xl flex items-center justify-center mb-5
                   shadow-md group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
                   {v.icon}
                 </div>
                 <h3 className="font-heading font-bold text-primary-dark text-lg mb-2 group-hover:text-primary transition-colors">{v.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">{v.desc}</p>
-                {/* Bottom accent line */}
                 <div className="mt-4 h-0.5 w-0 group-hover:w-full bg-gradient-to-r from-gold to-transparent transition-all duration-500 rounded-full" />
               </div>
             ))}
@@ -188,6 +186,32 @@ export default function About() {
         </div>
 
       </div>
+
+      {/* ── LIGHTBOX ── */}
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-[998] bg-black/90 flex items-center justify-center p-4"
+          onClick={() => setLightbox(null)}
+        >
+          <div className="relative max-w-3xl w-full" onClick={e => e.stopPropagation()}>
+            <img
+              src={lightbox.src}
+              alt={lightbox.alt}
+              className="w-full rounded-2xl shadow-2xl object-contain max-h-[80vh]"
+            />
+            <p className="text-white/70 text-sm text-center mt-3">{lightbox.alt}</p>
+            <button
+              onClick={() => setLightbox(null)}
+              className="absolute -top-4 -right-4 w-10 h-10 bg-white rounded-full
+                flex items-center justify-center text-primary font-bold text-xl
+                shadow-lg hover:bg-gold hover:text-white transition-colors"
+            >
+              ✕
+            </button>
+          </div>
+          <p className="absolute bottom-6 text-white/40 text-xs">Tap outside to close</p>
+        </div>
+      )}
     </section>
   );
 }

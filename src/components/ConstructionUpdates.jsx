@@ -221,10 +221,14 @@ export default function ConstructionUpdates() {
         {/* ── Update Cards ── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((item, i) => (
-            <div key={item.id}
+            <a
+              key={item.id}
+              href={item.link}
+              target="_blank"
+              rel="noreferrer"
               className={`bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl
-                border border-gray-100 hover:border-gold/30 transition-all duration-400
-                hover:-translate-y-1 group
+                border border-gray-100 hover:border-gold/30 transition-all duration-300
+                hover:-translate-y-1 group block
                 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
               style={{ transitionDelay: visible ? `${i * 70}ms` : '0ms' }}>
 
@@ -257,8 +261,7 @@ export default function ConstructionUpdates() {
                   </div>
                   <div className="w-full bg-white/20 rounded-full h-1.5 backdrop-blur-sm">
                     <div
-                      className="h-1.5 rounded-full bg-gradient-to-r from-gold to-yellow-300
-                        transition-all duration-1000"
+                      className="h-1.5 rounded-full bg-gradient-to-r from-gold to-yellow-300 transition-all duration-1000"
                       style={{ width: visible ? `${item.progress}%` : '0%' }}
                     />
                   </div>
@@ -266,9 +269,9 @@ export default function ConstructionUpdates() {
               </div>
 
               {/* Info */}
-              <div className="p-5">
+              <div className="p-4">
                 <div className="flex items-start justify-between mb-2">
-                  <div>
+                  <div className="flex-1">
                     <h3 className="font-heading font-bold text-primary-dark text-base
                       group-hover:text-primary transition-colors leading-tight">
                       {item.project}
@@ -279,7 +282,7 @@ export default function ConstructionUpdates() {
                     </div>
                   </div>
                   <div className="text-right flex-shrink-0 ml-2">
-                    <div className="flex items-center gap-1 text-gray-400 text-xs">
+                    <div className="flex items-center gap-1 text-gray-400 text-xs justify-end">
                       <MdSchedule size={12} className="text-primary" />
                       {item.delivery}
                     </div>
@@ -287,25 +290,24 @@ export default function ConstructionUpdates() {
                   </div>
                 </div>
 
-                <p className="text-gray-500 text-xs leading-relaxed mt-3 line-clamp-3">
+                <p className="text-gray-500 text-xs leading-relaxed mt-2 line-clamp-2">
                   {item.update}
                 </p>
 
-                <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
-                  <a href={item.link} target="_blank" rel="noreferrer"
-                    className="flex items-center gap-1 text-xs text-primary hover:text-gold
-                      font-semibold transition-colors">
-                    <MdOpenInNew size={13} /> Official Page
-                  </a>
-                  <a href="#contact"
+                {/* Bottom row */}
+                <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
+                  <span className="flex items-center gap-1 text-xs text-primary font-semibold">
+                    <MdOpenInNew size={13} /> View Official Page
+                  </span>
+                  <span
                     onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}
-                    className="text-xs bg-primary hover:bg-gold text-white px-3 py-1.5
-                      rounded-lg font-bold transition-all duration-300 hover:-translate-y-0.5">
+                    className="text-xs bg-primary text-white px-3 py-1.5 rounded-lg font-bold cursor-pointer
+                      hover:bg-gold transition-colors">
                     Enquire
-                  </a>
+                  </span>
                 </div>
               </div>
-            </div>
+            </a>
           ))}
         </div>
 
