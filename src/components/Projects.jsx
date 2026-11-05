@@ -222,10 +222,22 @@ export default function Projects({ onViewAzizi }) {
   const sectionRef = useRef(null);
   const visible = useIntersection(sectionRef);
   const [activeCategory, setActiveCategory] = useState('All');
+  const [selectedProject, setSelectedProject] = useState(null);
 
   const filtered = activeCategory === 'All'
     ? projects
     : projects.filter(p => p.category === activeCategory);
+
+  // Handle card tap/click
+  const handleCardClick = (project) => {
+    if (project.isAzizi) {
+      onViewAzizi && onViewAzizi();
+    } else if (project.link) {
+      window.open(project.link, '_blank', 'noopener,noreferrer');
+    } else {
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <section id="projects" ref={sectionRef} className="py-20 md:py-28 bg-white overflow-hidden">
@@ -270,23 +282,24 @@ export default function Projects({ onViewAzizi }) {
           {filtered.map((project, i) => (
             <div
               key={project.id}
-              onClick={project.isAzizi ? () => onViewAzizi && onViewAzizi() : undefined}
-              className={`bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl
-                hover:-translate-y-2 border border-gray-100 hover:border-gold/30
-                transition-all duration-400 group
-                ${project.isAzizi ? 'cursor-pointer' : ''}
+              className={`bg-white rounded-2xl overflow-hidden shadow-md
+                border border-gray-100 hover:border-gold/30 hover:shadow-xl
+                transition-all duration-300 group
                 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
               style={{ transitionDelay: visible ? `${i * 70}ms` : '0ms' }}
             >
-              {/* Image */}
-              <div className="relative overflow-hidden h-52">
+              {/* Image — clickable area */}
+              <div
+                className="relative overflow-hidden h-52 cursor-pointer"
+                onClick={() => handleCardClick(project)}
+              >
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
                 {/* Status badge */}
                 <span className={`absolute top-3 left-3 text-xs font-bold px-3 py-1 rounded-full backdrop-blur-sm ${
@@ -306,30 +319,6 @@ export default function Projects({ onViewAzizi }) {
                   </span>
                 ) : null}
 
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-primary/80 flex flex-col items-center justify-center gap-3
-                  opacity-0 group-hover:opacity-100 transition-all duration-300 p-4">
-                  {project.isAzizi ? (
-                    <div className="text-white font-bold text-sm flex items-center gap-2">
-                      <MdArrowForward size={18} className="animate-bounce" />
-                      Click to View Details
-                    </div>
-                  ) : project.link ? (
-                    <a href={project.link} target="_blank" rel="noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="bg-white text-primary font-bold px-5 py-2.5 rounded-xl
-                        flex items-center gap-2 hover:bg-gold hover:text-white transition-colors shadow-lg text-sm">
-                      Official Site <MdArrowForward size={16} />
-                    </a>
-                  ) : null}
-                  <a href="#contact"
-                    onClick={(e) => { e.stopPropagation(); e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}
-                    className="bg-gold/90 text-white font-bold px-5 py-2.5 rounded-xl
-                      flex items-center gap-2 hover:bg-gold transition-colors shadow-lg text-sm">
-                    Enquire Now
-                  </a>
-                </div>
-
                 {/* Price on image */}
                 <div className="absolute bottom-3 left-3">
                   <p className="text-white font-heading font-bold text-lg drop-shadow-md">{project.price}</p>
@@ -337,64 +326,98 @@ export default function Projects({ onViewAzizi }) {
                     <p className="text-white/80 text-xs mt-0.5">Delivery: {project.delivery}</p>
                   )}
                 </div>
+
+                {/* Tap hint for Azizi */}
+                {project.isAzizi && (
+                  <div className="absolute inset-0 flex items-center justify-center
+                    bg-primary/0 group-hover:bg-primary/60 transition-all duration-300">
+                    <span className="opacity-0 group-hover:opacity-100 bg-white text-primary
+                      font-bold px-4 py-2 rounded-xl text-sm flex items-center gap-2
+                      transition-opacity duration-300">
+                      View Details <MdArrowForward size={16} />
+                    </span>
+                  </div>
+                )}
               </div>
 
               {/* Info */}
-              <div className="p-5">
+              <div className="p-4">
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-heading font-bold text-primary-dark text-lg leading-tight
-                      group-hover:text-primary transition-colors">
+                    <h3 className="font-heading font-bold text-primary-dark text-base leading-tight">
                       {project.title}
                     </h3>
                     <div className="flex items-center gap-1 text-gray-400 text-xs mt-1">
-                      <MdLocationOn size={13} className="text-gold flex-shrink-0" />
+                      <MdLocationOn size={12} className="text-gold flex-shrink-0" />
                       <span className="truncate">{project.location}</span>
                     </div>
                   </div>
-                  <span className="text-xs bg-primary/10 text-primary px-2.5 py-1 rounded-lg
-                    font-bold whitespace-nowrap ml-2 flex-shrink-0">
+                  <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-lg
+                    font-bold whitespace-nowrap ml-2 flex-shrink-0 text-[11px]">
                     {project.type}
                   </span>
                 </div>
 
                 {/* Specs */}
-                <div className="flex flex-wrap items-center gap-3 text-gray-500 text-xs mt-3 pt-3 border-t border-gray-100">
+                <div className="flex flex-wrap items-center gap-3 text-gray-500 text-xs mt-2 pt-2 border-t border-gray-100">
                   {project.beds && (
                     <div className="flex items-center gap-1">
-                      <MdBed size={14} className="text-primary" /> {project.beds} Beds
+                      <MdBed size={13} className="text-primary" /> {project.beds} Beds
                     </div>
                   )}
                   {project.area && project.area !== 'Multiple' && (
                     <div className="flex items-center gap-1">
-                      <MdSquareFoot size={14} className="text-primary" />
+                      <MdSquareFoot size={13} className="text-primary" />
                       {isNaN(Number(project.area.replace(/,/g,'')))
                         ? project.area
                         : Number(project.area.replace(/,/g,'')).toLocaleString()} sqft
                     </div>
                   )}
                   {project.developer && (
-                    <span className="text-primary font-semibold">By {project.developer}</span>
+                    <span className="text-primary font-semibold text-[11px]">By {project.developer}</span>
                   )}
                 </div>
 
                 {/* Highlights */}
                 {project.highlights && (
-                  <p className="text-xs text-gold font-medium mt-2 leading-relaxed">
+                  <p className="text-[11px] text-gold font-medium mt-2 leading-relaxed line-clamp-2">
                     {project.highlights}
                   </p>
                 )}
 
-                {/* Footer */}
-                <div className="flex items-center justify-between mt-4">
-                  <div className="flex items-center gap-0.5">
-                    {[1,2,3,4,5].map(s => <MdStar key={s} size={13} className="text-gold" />)}
-                  </div>
+                {/* ── Action buttons — always visible (mobile friendly) ── */}
+                <div className="flex items-center gap-2 mt-3 pt-3 border-t border-gray-100">
+                  {/* Primary action */}
+                  {project.isAzizi ? (
+                    <button
+                      onClick={() => handleCardClick(project)}
+                      className="flex-1 flex items-center justify-center gap-1.5
+                        bg-primary text-white px-3 py-2.5 rounded-xl font-bold text-xs
+                        active:bg-primary-dark transition-colors touch-manipulation"
+                    >
+                      View Details <MdArrowForward size={13} />
+                    </button>
+                  ) : project.link ? (
+                    <a
+                      href={project.link}
+                      target="_blank" rel="noreferrer"
+                      className="flex-1 flex items-center justify-center gap-1.5
+                        bg-primary text-white px-3 py-2.5 rounded-xl font-bold text-xs
+                        active:bg-primary-dark transition-colors"
+                    >
+                      Official Site <MdArrowForward size={13} />
+                    </a>
+                  ) : (
+                    <div className="flex-1" />
+                  )}
+
+                  {/* Enquire button — always */}
                   <a
                     href="#contact"
                     onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}
-                    className="text-xs bg-primary hover:bg-gold text-white px-4 py-1.5 rounded-lg
-                      transition-all duration-300 font-bold hover:shadow-md hover:-translate-y-0.5"
+                    className="flex-1 flex items-center justify-center
+                      bg-gold hover:bg-gold-dark text-white px-3 py-2.5 rounded-xl
+                      font-bold text-xs transition-colors touch-manipulation"
                   >
                     Enquire
                   </a>

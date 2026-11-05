@@ -119,8 +119,8 @@ export default function About() {
               {[
                 { src: aziziImg1, alt: 'Azizi Florence Sharjah', mt: '' },
                 { src: aziziImg2, alt: 'Azizi Developments Project', mt: 'mt-6' },
-                { src: 'https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=400&q=80', alt: 'Modern apartment', mt: '' },
-                { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80', alt: 'Commercial', mt: 'mt-6' },
+                { src: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80', alt: 'Dubai Skyline', mt: '' },
+                { src: 'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=400&q=80', alt: 'Azizi Community', mt: 'mt-6' },
               ].map((img, i) => (
                 <div key={i}
                   className={`${img.mt} overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-500
