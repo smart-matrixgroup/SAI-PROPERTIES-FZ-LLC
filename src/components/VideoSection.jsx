@@ -1,24 +1,48 @@
 import { useEffect, useRef, useState } from 'react';
-import { MdPlayArrow } from 'react-icons/md';
-import { FaFacebook, FaYoutube } from 'react-icons/fa';
+import { MdPlayArrow, MdOpenInNew } from 'react-icons/md';
+import { FaFacebook, FaYoutube, FaPlay } from 'react-icons/fa';
 
-// ── YouTube Videos ──
+// ── YouTube Videos — embed directly ──
 const youtubeVideos = [
   {
     id: 'yt1',
     videoId: '_Zob0a89-Ew',
-    title: 'Azizi Developments',
     tag: 'Official Video',
     source: 'youtube',
+    thumb: 'https://img.youtube.com/vi/_Zob0a89-Ew/mqdefault.jpg',
   },
 ];
 
-// ── Facebook Reels ──
+// ── Facebook Reels — open in Facebook (mobile compatible) ──
 const facebookReels = [
-  { id: 'fb1', videoId: '1602607494683952', tag: 'Project Showcase', source: 'facebook' },
-  { id: 'fb2', videoId: '1679734180157167', tag: 'Community Tour',   source: 'facebook' },
-  { id: 'fb3', videoId: '1745548686505877', tag: 'Lifestyle',         source: 'facebook' },
-  { id: 'fb4', videoId: '2157121364876987', tag: 'Latest Update',     source: 'facebook' },
+  {
+    id: 'fb1',
+    videoId: '1602607494683952',
+    tag: 'Project Showcase',
+    source: 'facebook',
+    thumb: 'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=400&q=70',
+  },
+  {
+    id: 'fb2',
+    videoId: '1679734180157167',
+    tag: 'Community Tour',
+    source: 'facebook',
+    thumb: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=70',
+  },
+  {
+    id: 'fb3',
+    videoId: '1745548686505877',
+    tag: 'Lifestyle',
+    source: 'facebook',
+    thumb: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=400&q=70',
+  },
+  {
+    id: 'fb4',
+    videoId: '2157121364876987',
+    tag: 'Latest Update',
+    source: 'facebook',
+    thumb: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&q=70',
+  },
 ];
 
 const allVideos = [...youtubeVideos, ...facebookReels];
@@ -37,11 +61,11 @@ function useIntersection(ref, threshold = 0.1) {
 }
 
 export default function VideoSection() {
-  const sectionRef = useRef(null);
-  const visible = useIntersection(sectionRef);
+  const sectionRef    = useRef(null);
+  const visible       = useIntersection(sectionRef);
   const [activeIdx, setActiveIdx] = useState(0);
-  const [loaded, setLoaded] = useState({});
-  const [tab, setTab] = useState('all'); // 'all' | 'youtube' | 'facebook'
+  const [ytPlaying, setYtPlaying] = useState(false); // show YT iframe only on click
+  const [tab, setTab] = useState('all');
 
   const filtered = tab === 'youtube'
     ? allVideos.filter(v => v.source === 'youtube')
@@ -49,225 +73,273 @@ export default function VideoSection() {
       ? allVideos.filter(v => v.source === 'facebook')
       : allVideos;
 
-  // Reset active when tab changes
-  useEffect(() => { setActiveIdx(0); }, [tab]);
+  useEffect(() => { setActiveIdx(0); setYtPlaying(false); }, [tab]);
 
   const activeVideo = filtered[activeIdx] ?? allVideos[0];
 
-  const renderPlayer = (video, isMain = false) => {
-    if (video.source === 'youtube') {
-      return (
-        <iframe
-          key={video.videoId}
-          className="absolute inset-0 w-full h-full"
-          src={`https://www.youtube.com/embed/${video.videoId}?rel=0&modestbranding=1${isMain ? '&autoplay=0' : ''}`}
-          title={video.tag}
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-          onLoad={() => setLoaded(p => ({ ...p, [video.videoId]: true }))}
-        />
-      );
-    }
-    return (
-      <iframe
-        key={video.videoId}
-        className="absolute inset-0 w-full h-full"
-        src={`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F${video.videoId}&show_text=false&appId=&width=560`}
-        style={{ border: 'none', overflow: 'hidden' }}
-        scrolling="no"
-        frameBorder="0"
-        allowFullScreen
-        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-        title={`Azizi Reel ${video.videoId}`}
-        onLoad={() => setLoaded(p => ({ ...p, [video.videoId]: true }))}
-      />
-    );
+  // When user changes active video reset play state
+  const handleSelect = (i) => {
+    setActiveIdx(i);
+    setYtPlaying(false);
   };
 
   return (
-    <section ref={sectionRef} className="py-20 md:py-28 bg-primary-dark overflow-hidden">
+    <section ref={sectionRef} className="py-14 sm:py-20 md:py-28 bg-primary-dark overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* ── Header ── */}
-        <div className={`text-center mb-10 transition-all duration-700
+        <div className={`text-center mb-8 transition-all duration-700
           ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <p className="text-gold font-semibold text-sm uppercase tracking-widest mb-3">Official Videos</p>
-          <h2 className="font-heading font-bold text-white text-3xl md:text-4xl leading-tight mb-4">
-            Azizi Developments<br />
-            <span className="text-gold">Project Videos</span>
-          </h2>
-          <div className="gold-divider mx-auto mb-4" />
-          <p className="text-white/60 max-w-xl mx-auto text-sm">
-            Watch official property tours, project showcases and lifestyle videos from Azizi Developments.
+          <p className="text-gold font-semibold text-xs sm:text-sm uppercase tracking-widest mb-2">
+            Official Videos
           </p>
-
-          {/* Source links */}
-          <div className="flex items-center justify-center gap-6 mt-4">
-            <a href="https://www.youtube.com/@AziziDevelopments" target="_blank" rel="noreferrer"
-              className="flex items-center gap-1.5 text-red-400 hover:text-red-300 text-xs font-semibold transition-colors">
-              <FaYoutube size={16} /> YouTube Channel
+          <h2 className="font-heading font-bold text-white text-2xl sm:text-3xl md:text-4xl leading-tight mb-3">
+            Azizi Developments
+            <span className="text-gold"> Project Videos</span>
+          </h2>
+          <div className="gold-divider mx-auto mb-3" />
+          <p className="text-white/60 max-w-xl mx-auto text-xs sm:text-sm">
+            Watch official property tours, project showcases and lifestyle videos.
+          </p>
+          <div className="flex items-center justify-center gap-4 mt-3">
+            <a href="https://www.youtube.com/@AziziDevelopments"
+              target="_blank" rel="noreferrer"
+              className="flex items-center gap-1 text-red-400 text-xs font-semibold">
+              <FaYoutube size={14} /> YouTube
             </a>
-            <a href="https://www.facebook.com/AziziGroup/videos" target="_blank" rel="noreferrer"
-              className="flex items-center gap-1.5 text-blue-400 hover:text-blue-300 text-xs font-semibold transition-colors">
-              <FaFacebook size={15} /> Facebook Videos
+            <a href="https://www.facebook.com/AziziGroup/videos"
+              target="_blank" rel="noreferrer"
+              className="flex items-center gap-1 text-blue-400 text-xs font-semibold">
+              <FaFacebook size={13} /> Facebook
             </a>
           </div>
         </div>
 
         {/* ── Filter tabs ── */}
-        <div className={`flex justify-center gap-3 mb-8 transition-all duration-700 delay-100
+        <div className={`flex justify-center gap-2 mb-6 transition-all duration-700 delay-100
           ${visible ? 'opacity-100' : 'opacity-0'}`}>
           {[
-            { key: 'all',      label: 'All Videos',  count: allVideos.length },
-            { key: 'youtube',  label: 'YouTube',     count: youtubeVideos.length, icon: <FaYoutube className="text-red-400" size={13}/> },
-            { key: 'facebook', label: 'Facebook',    count: facebookReels.length, icon: <FaFacebook className="text-blue-400" size={13}/> },
+            { key: 'all',      label: 'All',      count: allVideos.length },
+            { key: 'youtube',  label: 'YouTube',  count: youtubeVideos.length,
+              icon: <FaYoutube className="text-red-400" size={11}/> },
+            { key: 'facebook', label: 'Facebook', count: facebookReels.length,
+              icon: <FaFacebook className="text-blue-400" size={11}/> },
           ].map(t => (
             <button key={t.key} onClick={() => setTab(t.key)}
-              className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold
-                transition-all duration-300 border
+              className={`flex items-center gap-1 px-3 sm:px-4 py-2 rounded-full
+                text-xs font-bold transition-all duration-300 border
                 ${tab === t.key
                   ? 'bg-gold text-white border-gold shadow-lg'
-                  : 'bg-white/5 text-white/60 border-white/10 hover:border-white/30 hover:text-white'
+                  : 'bg-white/5 text-white/60 border-white/10'
                 }`}>
-              {t.icon}
-              {t.label}
-              <span className={`text-[10px] px-1.5 py-0.5 rounded-full
-                ${tab === t.key ? 'bg-white/20' : 'bg-white/10'}`}>
+              {t.icon}{t.label}
+              <span className="text-[10px] px-1 py-0.5 rounded-full bg-white/20">
                 {t.count}
               </span>
             </button>
           ))}
         </div>
 
-        {/* ── Player + Sidebar ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* ── Main player + Sidebar ── */}
+        <div className={`grid grid-cols-1 lg:grid-cols-3 gap-5 transition-all duration-700
+          ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
 
-          {/* Main player */}
-          <div className={`lg:col-span-2 transition-all duration-700
-            ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-
+          {/* ── MAIN PLAYER ── */}
+          <div className="lg:col-span-2">
             {/* Source badge */}
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-2 mb-2">
               {activeVideo.source === 'youtube' ? (
-                <span className="flex items-center gap-1.5 bg-red-600/20 text-red-400
-                  border border-red-500/30 px-3 py-1 rounded-full text-xs font-bold">
-                  <FaYoutube size={13} /> YouTube
+                <span className="flex items-center gap-1 bg-red-600/20 text-red-400
+                  border border-red-500/30 px-2.5 py-1 rounded-full text-xs font-bold">
+                  <FaYoutube size={11} /> YouTube
                 </span>
               ) : (
-                <span className="flex items-center gap-1.5 bg-blue-600/20 text-blue-400
-                  border border-blue-500/30 px-3 py-1 rounded-full text-xs font-bold">
-                  <FaFacebook size={12} /> Facebook
+                <span className="flex items-center gap-1 bg-blue-600/20 text-blue-400
+                  border border-blue-500/30 px-2.5 py-1 rounded-full text-xs font-bold">
+                  <FaFacebook size={10} /> Facebook
                 </span>
               )}
               <span className="text-gold text-xs font-semibold bg-gold/10
-                border border-gold/20 px-3 py-1 rounded-full">
+                border border-gold/20 px-2.5 py-1 rounded-full">
                 {activeVideo.tag}
               </span>
             </div>
 
-            {/* Video iframe */}
+            {/* Player area */}
             <div className="relative rounded-2xl overflow-hidden bg-black
               ring-1 ring-white/10 shadow-2xl" style={{ paddingBottom: '56.25%' }}>
-              {!loaded[activeVideo.videoId] && (
-                <div className="absolute inset-0 flex items-center justify-center bg-primary-dark z-10">
-                  <div className="w-10 h-10 border-2 border-gold/30 border-t-gold rounded-full animate-spin" />
+
+              {/* ── YOUTUBE — embed on play ── */}
+              {activeVideo.source === 'youtube' && (
+                <>
+                  {!ytPlaying ? (
+                    /* Thumbnail + play button */
+                    <div className="absolute inset-0 cursor-pointer group"
+                      onClick={() => setYtPlaying(true)}>
+                      <img
+                        src={activeVideo.thumb}
+                        alt={activeVideo.tag}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-black/40
+                        group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                        <div className="w-16 h-16 sm:w-20 sm:h-20 bg-red-600 rounded-full
+                          flex items-center justify-center shadow-2xl
+                          group-hover:scale-110 transition-transform duration-300">
+                          <FaPlay className="text-white ml-1" size={22} />
+                        </div>
+                      </div>
+                      <div className="absolute bottom-3 left-3 right-3">
+                        <p className="text-white font-bold text-sm sm:text-base drop-shadow">
+                          {activeVideo.tag}
+                        </p>
+                        <p className="text-white/60 text-xs flex items-center gap-1 mt-0.5">
+                          <FaYoutube size={10} className="text-red-400" /> Tap to play
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    /* YouTube iframe — loads only after tap */
+                    <iframe
+                      className="absolute inset-0 w-full h-full"
+                      src={`https://www.youtube.com/embed/${activeVideo.videoId}?autoplay=1&rel=0&modestbranding=1`}
+                      title={activeVideo.tag}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    />
+                  )}
+                </>
+              )}
+
+              {/* ── FACEBOOK — thumbnail + open button ── */}
+              {activeVideo.source === 'facebook' && (
+                <div className="absolute inset-0">
+                  <img
+                    src={activeVideo.thumb}
+                    alt={activeVideo.tag}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/50 flex flex-col
+                    items-center justify-center gap-4 px-6">
+                    {/* Facebook play info */}
+                    <div className="text-center">
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 bg-blue-600 rounded-full
+                        flex items-center justify-center shadow-2xl mx-auto mb-3">
+                        <FaFacebook className="text-white" size={28} />
+                      </div>
+                      <p className="text-white font-bold text-sm sm:text-base mb-1">
+                        {activeVideo.tag}
+                      </p>
+                      <p className="text-white/60 text-xs mb-4">
+                        Facebook Reel — Opens in Facebook app / browser
+                      </p>
+                    </div>
+                    {/* Open in Facebook button */}
+                    <a
+                      href={`https://www.facebook.com/reel/${activeVideo.videoId}`}
+                      target="_blank" rel="noreferrer"
+                      className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700
+                        text-white px-6 py-3 rounded-xl font-bold text-sm
+                        transition-all duration-300 hover:shadow-lg shadow-md"
+                    >
+                      <FaFacebook size={16} />
+                      Watch on Facebook
+                      <MdOpenInNew size={14} />
+                    </a>
+                    <p className="text-white/30 text-xs text-center">
+                      Facebook videos require login to play inline
+                    </p>
+                  </div>
                 </div>
               )}
-              {renderPlayer(activeVideo, true)}
             </div>
 
             {/* External link */}
-            <div className="mt-3 flex justify-end">
+            <div className="mt-2 flex justify-end">
               {activeVideo.source === 'youtube' ? (
                 <a href={`https://youtu.be/${activeVideo.videoId}`}
                   target="_blank" rel="noreferrer"
-                  className="flex items-center gap-1.5 text-red-400 hover:text-red-300
-                    text-xs font-semibold transition-colors">
-                  <FaYoutube size={13} /> Watch on YouTube
+                  className="flex items-center gap-1 text-red-400 text-xs font-semibold">
+                  <FaYoutube size={12} /> Watch on YouTube
                 </a>
               ) : (
                 <a href={`https://www.facebook.com/reel/${activeVideo.videoId}`}
                   target="_blank" rel="noreferrer"
-                  className="flex items-center gap-1.5 text-blue-400 hover:text-blue-300
-                    text-xs font-semibold transition-colors">
-                  <FaFacebook size={13} /> View on Facebook
+                  className="flex items-center gap-1 text-blue-400 text-xs font-semibold">
+                  <FaFacebook size={11} /> Open in Facebook
                 </a>
               )}
             </div>
           </div>
 
-          {/* Sidebar thumbnails */}
-          <div className={`flex flex-col gap-3 transition-all duration-700 delay-200
-            ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-            <p className="text-white/50 text-xs uppercase tracking-widest font-semibold px-1">
+          {/* ── SIDEBAR / MOBILE GRID ── */}
+          <div className="lg:col-span-1">
+            <p className="text-white/50 text-xs uppercase tracking-widest font-semibold mb-3 px-1">
               {filtered.length} Video{filtered.length !== 1 ? 's' : ''}
             </p>
 
-            <div className="space-y-3 max-h-[480px] overflow-y-auto pr-1
-              scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+            {/* Mobile: horizontal scroll grid | Desktop: vertical list */}
+            <div className="flex gap-3 overflow-x-auto pb-2 lg:flex-col lg:overflow-visible
+              lg:space-y-3 lg:max-h-[400px] lg:overflow-y-auto
+              scrollbar-none lg:pr-1">
               {filtered.map((video, i) => (
-                <button key={video.id} onClick={() => setActiveIdx(i)}
-                  className={`w-full relative rounded-xl overflow-hidden text-left
-                    transition-all duration-300 group border-2
-                    ${activeIdx === i && tab !== 'all' || filtered[activeIdx]?.id === video.id
+                <button
+                  key={video.id}
+                  onClick={() => handleSelect(i)}
+                  className={`flex-shrink-0 w-36 sm:w-44 lg:w-full rounded-xl overflow-hidden
+                    text-left transition-all duration-300 group border-2
+                    ${filtered[activeIdx]?.id === video.id
                       ? 'border-gold shadow-lg shadow-gold/20'
                       : 'border-white/10 hover:border-white/30'
-                    }`}>
+                    }`}
+                >
                   {/* Thumbnail */}
-                  <div className="relative bg-primary-dark" style={{ paddingBottom: '56.25%' }}>
-                    {video.source === 'youtube' ? (
-                      <img
-                        src={`https://img.youtube.com/vi/${video.videoId}/mqdefault.jpg`}
-                        alt={video.tag}
-                        className="absolute inset-0 w-full h-full object-cover"
-                      />
-                    ) : (
-                      <iframe
-                        className="absolute inset-0 w-full h-full pointer-events-none"
-                        src={`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F${video.videoId}&show_text=false&appId=&width=200`}
-                        style={{ border: 'none', overflow: 'hidden' }}
-                        scrolling="no"
-                        frameBorder="0"
-                        title={`Thumb ${video.videoId}`}
-                        tabIndex={-1}
-                      />
-                    )}
-
-                    {/* Play overlay */}
+                  <div className="relative bg-gray-900"
+                    style={{ paddingBottom: '56.25%' }}>
+                    <img
+                      src={video.thumb}
+                      alt={video.tag}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                    {/* Overlay */}
                     {filtered[activeIdx]?.id !== video.id && (
-                      <div className="absolute inset-0 bg-black/40 flex items-center justify-center
-                        group-hover:bg-black/20 transition-colors">
-                        <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center
-                          group-hover:bg-gold transition-colors">
-                          <MdPlayArrow className="text-white" size={18} />
+                      <div className="absolute inset-0 bg-black/45 flex items-center justify-center
+                        group-hover:bg-black/25 transition-colors">
+                        <div className="w-7 h-7 bg-white/20 rounded-full
+                          flex items-center justify-center group-hover:bg-gold transition-colors">
+                          <MdPlayArrow className="text-white" size={16} />
                         </div>
                       </div>
                     )}
-
-                    {/* Playing indicator */}
+                    {/* Playing badge */}
                     {filtered[activeIdx]?.id === video.id && (
-                      <div className="absolute top-2 left-2 bg-gold text-white text-[10px]
-                        font-bold px-2 py-0.5 rounded-full">▶ Playing</div>
+                      <div className="absolute top-1.5 left-1.5 bg-gold text-white
+                        text-[9px] font-bold px-1.5 py-0.5 rounded-full">
+                        ▶ Playing
+                      </div>
                     )}
-
                     {/* Source badge */}
-                    <div className={`absolute top-2 right-2 text-[10px] font-bold
-                      px-2 py-0.5 rounded-full
+                    <div className={`absolute top-1.5 right-1.5 text-[9px] font-bold
+                      px-1.5 py-0.5 rounded-full
                       ${video.source === 'youtube'
-                        ? 'bg-red-600/80 text-white'
-                        : 'bg-blue-600/80 text-white'
+                        ? 'bg-red-600/90 text-white'
+                        : 'bg-blue-600/90 text-white'
                       }`}>
                       {video.source === 'youtube' ? 'YT' : 'FB'}
                     </div>
                   </div>
 
+                  {/* Label */}
                   <div className="p-2 bg-primary-dark">
-                    <p className="text-white/80 text-xs font-semibold">{video.tag}</p>
-                    <p className="text-white/40 text-[10px] mt-0.5 flex items-center gap-1">
+                    <p className="text-white/80 text-[11px] font-semibold leading-tight">
+                      {video.tag}
+                    </p>
+                    <p className="text-white/40 text-[10px] mt-0.5 flex items-center gap-0.5">
                       {video.source === 'youtube'
-                        ? <><FaYoutube size={9} className="text-red-400" /> YouTube</>
-                        : <><FaFacebook size={9} className="text-blue-400" /> Facebook</>
+                        ? <><FaYoutube size={8} className="text-red-400" /> YouTube</>
+                        : <><FaFacebook size={8} className="text-blue-400" /> Facebook</>
                       }
                     </p>
                   </div>
