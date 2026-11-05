@@ -3,100 +3,86 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-
+  html { scroll-behavior: smooth; }
   body {
     @apply font-sans text-gray-800 bg-white;
     overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
   }
-
-  h1, h2, h3, h4 {
-    @apply font-heading;
-  }
+  h1,h2,h3,h4 { @apply font-heading; }
+  /* Better tap targets on mobile */
+  a, button { min-height: 44px; }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-primary text-white px-6 py-3 rounded-md font-semibold 
-           hover:bg-primary-light transition-all duration-300 
-           shadow-md hover:shadow-lg inline-block;
+    @apply bg-primary text-white px-6 py-3 rounded-xl font-bold
+           hover:bg-primary-light transition-all duration-300
+           shadow-md hover:shadow-lg inline-flex items-center justify-center
+           text-sm sm:text-base;
   }
-
-  .btn-outline {
-    @apply border-2 border-white text-white px-6 py-3 rounded-md font-semibold 
-           hover:bg-white hover:text-primary transition-all duration-300 inline-block;
-  }
-
   .btn-gold {
-    @apply bg-gold text-white px-6 py-3 rounded-md font-semibold 
-           hover:bg-gold-dark transition-all duration-300 
-           shadow-md hover:shadow-lg inline-block;
+    @apply bg-gold text-white px-6 py-3 rounded-xl font-bold
+           hover:bg-gold-dark transition-all duration-300
+           shadow-md hover:shadow-lg inline-flex items-center justify-center
+           text-sm sm:text-base;
   }
-
   .section-title {
-    @apply text-3xl md:text-4xl font-heading font-bold text-primary-dark;
+    @apply text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-primary-dark;
   }
-
   .section-subtitle {
-    @apply text-gold font-semibold text-sm uppercase tracking-widest mb-3;
+    @apply text-gold font-semibold text-xs sm:text-sm uppercase tracking-widest mb-2;
   }
-
   .card {
-    @apply bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden;
+    @apply bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden;
+  }
+  /* Mobile-friendly section padding */
+  .section-pad {
+    @apply py-14 sm:py-20 md:py-28;
   }
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-::-webkit-scrollbar-thumb {
-  background: #1a3a6b;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #2a5298;
-}
-
-/* Hero video overlay */
-.hero-overlay {
-  background: linear-gradient(
-    135deg,
-    rgba(15, 35, 71, 0.85) 0%,
-    rgba(26, 58, 107, 0.7) 50%,
-    rgba(26, 58, 107, 0.5) 100%
-  );
-}
-
-/* Property card hover effect */
-.property-card:hover .property-overlay {
-  opacity: 1;
-}
-
-.property-overlay {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #1a3a6b; border-radius: 3px; }
 
 /* Gold divider */
 .gold-divider {
-  width: 60px;
+  width: 50px;
   height: 3px;
   background: linear-gradient(90deg, #c9a84c, #e0c068);
   border-radius: 2px;
 }
 
-/* Animated counter */
-@keyframes countUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Filter tabs horizontal scroll on mobile */
+.filter-scroll {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  gap: 0.5rem;
+  padding-bottom: 4px;
 }
+.filter-scroll::-webkit-scrollbar { display: none; }
 
-.stat-item {
-  animation: countUp 0.6s ease-out forwards;
+/* Animations */
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes logoAppear {
+  0%   { opacity: 0; transform: scale(0.7) translateY(-15px); }
+  60%  { transform: scale(1.04) translateY(0); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes floatParticle {
+  0%,100% { transform: translateY(0) translateX(0); opacity: .3; }
+  33%     { transform: translateY(-18px) translateX(8px); opacity: .8; }
+  66%     { transform: translateY(8px) translateX(-6px); opacity: .5; }
 }

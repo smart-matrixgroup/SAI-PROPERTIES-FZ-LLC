@@ -21,7 +21,8 @@ export default function App() {
 
       <div className={`transition-opacity duration-700 ${entered ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         <Navbar />
-        <main>
+        {/* pb-16 = bottom nav height on mobile so content not hidden behind it */}
+        <main className="pb-16 md:pb-0">
           <Hero />
           <About />
           <Services />

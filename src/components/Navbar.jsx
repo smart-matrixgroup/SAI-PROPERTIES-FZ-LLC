@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { HiMenu, HiX } from 'react-icons/hi';
 import { FaWhatsapp } from 'react-icons/fa';
 import {
   MdHome,
@@ -21,7 +20,6 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const [isOpen,        setIsOpen]        = useState(false);
   const [scrolled,      setScrolled]      = useState(false);
   const [scrollingDown, setScrollingDown] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -47,13 +45,14 @@ export default function Navbar() {
   }, []);
 
   const handleNavClick = (href) => {
-    setIsOpen(false);
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <>
-      {/* ══════════════════════ HEADER ══════════════════════ */}
+      {/* ═══════════════════════════════════════
+          TOP HEADER — Desktop + Mobile logo bar
+      ═══════════════════════════════════════ */}
       <header
         className={`fixed top-0 left-0 right-0 z-50 bg-white transition-all duration-300
           ${scrolled ? 'shadow-lg py-1' : 'shadow-md py-1'}
@@ -66,11 +65,11 @@ export default function Navbar() {
             <a
               href="#home"
               onClick={(e) => { e.preventDefault(); handleNavClick('#home'); }}
-              className="flex items-center gap-3 flex-shrink-0 group"
+              className="flex items-center gap-2 flex-shrink-0 group"
             >
               <div className={`flex-shrink-0 transition-all duration-300
-                group-hover:scale-105 group-hover:rotate-3
-                ${scrolled ? 'h-14 w-14' : 'h-16 w-16'}`}>
+                group-hover:scale-105
+                ${scrolled ? 'h-12 w-12' : 'h-14 w-14'}`}>
                 <img
                   src={logo}
                   alt="SAI Properties logo"
@@ -79,31 +78,34 @@ export default function Navbar() {
               </div>
               <div className="flex flex-col leading-tight">
                 <span className={`font-heading font-bold tracking-widest text-primary-dark
-                  transition-all duration-300 ${scrolled ? 'text-base' : 'text-lg'}`}>
+                  transition-all duration-300
+                  ${scrolled ? 'text-sm sm:text-base' : 'text-base sm:text-lg'}`}>
                   SAI PROPERTIES
                 </span>
-                <span className="text-gold font-bold text-xs tracking-[0.3em] uppercase">
+                <span className="text-gold font-bold text-[10px] sm:text-xs tracking-[0.3em] uppercase">
                   FZ-LLC
                 </span>
               </div>
             </a>
 
-            {/* ── Desktop Nav ── */}
+            {/* ── Desktop Nav (md+) ── */}
             <nav className="hidden md:flex items-center gap-1 lg:gap-2">
               {navLinks.map((link) => {
                 const Icon = link.icon;
                 const isActive = activeSection === link.href.replace('#', '');
-                const showIcons = !scrolled; // icons + text visible only at top
+                const showIcons = !scrolled;
 
                 return (
                   <a
                     key={link.label}
                     href={link.href}
                     onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
-                    className={`relative flex flex-col items-center gap-0.5 px-4
+                    className={`relative flex flex-col items-center gap-0.5 px-3 lg:px-4
                       rounded-xl font-semibold text-xs uppercase tracking-wider
                       transition-all duration-300 group overflow-hidden
-                      ${showIcons ? 'py-2 opacity-100 max-w-[80px]' : 'py-0 opacity-0 max-w-0 px-0 pointer-events-none'}
+                      ${showIcons
+                        ? 'py-2 opacity-100 max-w-[80px]'
+                        : 'py-0 opacity-0 max-w-0 px-0 pointer-events-none'}
                       ${isActive
                         ? 'text-primary bg-primary/8'
                         : 'text-gray-600 hover:text-primary hover:bg-primary/5'
@@ -112,25 +114,17 @@ export default function Navbar() {
                     {isActive && (
                       <span className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent rounded-xl" />
                     )}
-
-                    {/* Icon */}
                     <span className={`relative z-10 transition-all duration-300
                       ${isActive
                         ? 'text-primary scale-110'
-                        : 'text-gray-400 group-hover:text-primary group-hover:scale-110 group-hover:-translate-y-0.5'
+                        : 'text-gray-400 group-hover:text-primary group-hover:scale-110'
                       }`}>
                       <Icon size={18} />
                     </span>
-
-                    {/* Label */}
                     <span className="relative z-10">{link.label}</span>
-
-                    {/* Active dot */}
                     {isActive && (
                       <span className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 bg-gold rounded-full" />
                     )}
-
-                    {/* Hover underline */}
                     <span className={`absolute bottom-0 left-0 h-0.5 bg-gold rounded-full
                       transition-all duration-300
                       ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`}
@@ -139,92 +133,92 @@ export default function Navbar() {
                 );
               })}
 
-              {/* Divider */}
               <div className="w-px h-8 bg-gray-200 mx-2" />
-
-              {/* Get In Touch only */}
               <a
                 href="#contact"
                 onClick={(e) => { e.preventDefault(); handleNavClick('#contact'); }}
                 className="bg-primary hover:bg-primary-light text-white px-5 py-2
                   rounded-full text-sm font-bold transition-all duration-300
-                  hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5
-                  hover:scale-105 active:scale-95"
+                  hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5"
               >
                 Get In Touch
               </a>
             </nav>
 
-            {/* ── Mobile hamburger ── */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2 rounded-lg text-primary hover:bg-primary/10
-                transition-all duration-300 hover:rotate-90"
-              aria-label="Toggle menu"
+            {/* ── Mobile: WhatsApp button in header ── */}
+            <a
+              href="https://wa.me/971567986455"
+              target="_blank" rel="noreferrer"
+              className="md:hidden flex items-center gap-1.5 bg-green-500 text-white
+                px-3 py-2 rounded-full text-xs font-bold shadow-md"
             >
-              {isOpen ? <HiX size={26} /> : <HiMenu size={26} />}
-            </button>
-          </div>
-        </div>
-
-        {/* ── Mobile dropdown ── */}
-        <div className={`md:hidden transition-all duration-300 overflow-hidden
-          ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
-          <div className="bg-white border-t border-gray-100 px-4 pb-5 pt-3 shadow-xl">
-            {navLinks.map((link, i) => {
-              const Icon = link.icon;
-              const isActive = activeSection === link.href.replace('#', '');
-              return (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
-                  style={{ animationDelay: `${i * 60}ms` }}
-                  className={`flex items-center gap-3 py-3 px-3 rounded-xl mb-1
-                    font-semibold transition-all duration-200
-                    ${isActive
-                      ? 'bg-primary/10 text-primary'
-                      : 'text-gray-700 hover:bg-gray-50 hover:text-primary'
-                    }`}
-                >
-                  {/* Icon */}
-                  <span className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0
-                    transition-all duration-200
-                    ${isActive ? 'bg-primary text-white' : 'bg-gray-100 text-gray-500'}`}>
-                    <Icon size={16} />
-                  </span>
-                  <span className="flex-1">{link.label}</span>
-                  {isActive && (
-                    <span className="w-2 h-2 bg-gold rounded-full animate-pulse" />
-                  )}
-                </a>
-              );
-            })}
-
-            <div className="flex gap-3 mt-4 pt-3 border-t border-gray-100">
-              <a
-                href="#contact"
-                onClick={(e) => { e.preventDefault(); handleNavClick('#contact'); }}
-                className="flex-1 flex items-center justify-center bg-primary text-white
-                  py-3 rounded-xl font-bold text-sm hover:bg-primary-light
-                  transition-colors shadow-md"
-              >
-                Get In Touch
-              </a>
-            </div>
+              <FaWhatsapp size={15} />
+              Chat
+            </a>
           </div>
         </div>
       </header>
 
-      {/* ══════════════════════ FLOATING WHATSAPP ══════════════════════ */}
+      {/* ═══════════════════════════════════════
+          MOBILE BOTTOM NAV BAR (mobile only)
+      ═══════════════════════════════════════ */}
+      <nav
+        className="md:hidden fixed bottom-0 left-0 right-0 z-50
+          bg-white border-t-2 border-primary-dark shadow-2xl"
+        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+      >
+        <div className="flex items-stretch">
+          {navLinks.map((link) => {
+            const Icon = link.icon;
+            const isActive = activeSection === link.href.replace('#', '');
+            return (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
+                className={`flex-1 flex flex-col items-center justify-center py-2 gap-0.5
+                  transition-all duration-200 relative min-h-[56px]
+                  ${isActive ? 'text-primary' : 'text-gray-400 active:text-primary'}`}
+              >
+                {/* Active top indicator */}
+                {isActive && (
+                  <span className="absolute top-0 left-1/2 -translate-x-1/2
+                    w-8 h-0.5 bg-gold rounded-full" />
+                )}
+
+                {/* Active bg pill */}
+                {isActive && (
+                  <span className="absolute inset-x-1 inset-y-1 bg-primary/8 rounded-xl" />
+                )}
+
+                {/* Icon */}
+                <span className={`relative z-10 transition-all duration-200
+                  ${isActive ? 'scale-110 -translate-y-0.5' : ''}`}>
+                  <Icon size={20} />
+                </span>
+
+                {/* Label */}
+                <span className={`relative z-10 text-[10px] font-bold leading-none
+                  transition-all duration-200
+                  ${isActive ? 'text-primary' : 'text-gray-400'}`}>
+                  {link.label}
+                </span>
+              </a>
+            );
+          })}
+        </div>
+      </nav>
+
+      {/* ═══════════════════════════════════════
+          FLOATING WHATSAPP — Desktop only
+      ═══════════════════════════════════════ */}
       <a
         href="https://wa.me/971567986455"
         target="_blank" rel="noreferrer"
         aria-label="Chat on WhatsApp"
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 hover:bg-green-600
-          rounded-full flex items-center justify-center
-          shadow-2xl shadow-green-500/40 hover:scale-110
-          transition-all duration-300 group"
+        className="hidden md:flex fixed bottom-6 right-6 z-50 w-14 h-14
+          bg-green-500 hover:bg-green-600 rounded-full items-center justify-center
+          shadow-2xl shadow-green-500/40 hover:scale-110 transition-all duration-300 group"
       >
         <FaWhatsapp size={28} className="text-white" />
         <span className="absolute right-16 bg-gray-900 text-white text-xs font-semibold
