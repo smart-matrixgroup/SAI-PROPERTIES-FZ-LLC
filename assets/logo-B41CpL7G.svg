@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <radialGradient id="skyG" cx="50%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#e8f4ff"/>
+      <stop offset="50%" stop-color="#c3dffe"/>
+      <stop offset="100%" stop-color="#93c5fd"/>
+    </radialGradient>
+    <linearGradient id="bG1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="bG2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1d4ed8"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="borderG" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e40af"/>
+      <stop offset="45%" stop-color="#60a5fa"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <clipPath id="cClip">
+      <circle cx="100" cy="100" r="92"/>
+    </clipPath>
+  </defs>
+
+  <!-- Outer glow -->
+  <circle cx="100" cy="100" r="97" fill="none" stroke="#93c5fd" stroke-width="1.2" opacity="0.5"/>
+
+  <!-- Circle background -->
+  <circle cx="100" cy="100" r="92" fill="url(#skyG)"/>
+
+  <!-- Buildings clipped to circle -->
+  <g clip-path="url(#cClip)">
+
+    <!-- Water base -->
+    <rect x="8" y="158" width="184" height="42" fill="#60a5fa" opacity="0.2"/>
+
+    <!-- Far buildings -->
+    <rect x="12"  y="120" width="11" height="48" rx="1" fill="#3b82f6" opacity="0.35"/>
+    <rect x="25"  y="110" width="9"  height="58" rx="1" fill="#2563eb" opacity="0.35"/>
+    <rect x="162" y="115" width="11" height="53" rx="1" fill="#3b82f6" opacity="0.35"/>
+    <rect x="175" y="108" width="9"  height="60" rx="1" fill="#2563eb" opacity="0.35"/>
+
+    <!-- Left cluster -->
+    <rect x="18"  y="130" width="16" height="38" rx="2" fill="url(#bG1)"/>
+    <rect x="36"  y="120" width="13" height="48" rx="2" fill="url(#bG2)"/>
+
+    <!-- Left curved tower -->
+    <path d="M54 168 L58 115 Q65 105 72 115 L76 168Z" fill="url(#bG1)"/>
+    <path d="M58 145 Q65 140 72 145" stroke="#93c5fd" stroke-width="0.7" fill="none" opacity="0.7"/>
+    <path d="M58 133 Q65 128 72 133" stroke="#93c5fd" stroke-width="0.7" fill="none" opacity="0.7"/>
+
+    <!-- BURJ KHALIFA centre -->
+    <path d="M91 168 L95 110 L99 52 L100 16 L101 52 L105 110 L109 168Z" fill="url(#bG1)"/>
+    <rect x="99.5" y="16" width="1.5" height="38" rx="0.5" fill="#3b82f6"/>
+    <!-- Setbacks -->
+    <rect x="89" y="118" width="22" height="2.5" rx="1" fill="#1d4ed8" opacity="0.7"/>
+    <rect x="91" y="103" width="18" height="2"   rx="1" fill="#1d4ed8" opacity="0.6"/>
+    <rect x="93" y="85"  width="14" height="2"   rx="1" fill="#1d4ed8" opacity="0.5"/>
+    <rect x="95" y="67"  width="10" height="1.5" rx="0.5" fill="#1d4ed8" opacity="0.4"/>
+    <!-- Windows Burj -->
+    <rect x="96"  y="130" width="3" height="4" rx="0.5" fill="#bfdbfe" opacity="0.9"/>
+    <rect x="101" y="130" width="3" height="4" rx="0.5" fill="#bfdbfe" opacity="0.9"/>
+    <rect x="96"  y="142" width="3" height="4" rx="0.5" fill="#bfdbfe" opacity="0.9"/>
+    <rect x="101" y="142" width="3" height="4" rx="0.5" fill="#bfdbfe" opacity="0.9"/>
+    <rect x="96"  y="154" width="3" height="4" rx="0.5" fill="#bfdbfe" opacity="0.9"/>
+    <rect x="101" y="154" width="3" height="4" rx="0.5" fill="#bfdbfe" opacity="0.9"/>
+
+    <!-- Right curved tower -->
+    <path d="M114 168 L118 118 Q125 108 132 118 L136 168Z" fill="url(#bG2)"/>
+    <path d="M118 147 Q125 142 132 147" stroke="#93c5fd" stroke-width="0.7" fill="none" opacity="0.7"/>
+    <path d="M118 135 Q125 130 132 135" stroke="#93c5fd" stroke-width="0.7" fill="none" opacity="0.7"/>
+
+    <!-- Right cluster -->
+    <rect x="138" y="126" width="17" height="42" rx="2" fill="url(#bG1)"/>
+    <rect x="157" y="118" width="13" height="50" rx="2" fill="url(#bG2)"/>
+    <rect x="172" y="128" width="11" height="40" rx="2" fill="url(#bG1)"/>
+
+    <!-- Water reflection -->
+    <path d="M8 162 Q55 153 100 160 Q145 167 192 158 L192 178 Q145 187 100 180 Q55 173 8 182Z"
+      fill="#1e3a8a" opacity="0.15"/>
+    <!-- Wave lines -->
+    <path d="M8 168 Q55 160 100 166 Q145 172 192 164" stroke="#3b82f6" stroke-width="0.8" fill="none" opacity="0.3"/>
+    <path d="M8 173 Q55 165 100 171 Q145 177 192 169" stroke="#60a5fa" stroke-width="0.6" fill="none" opacity="0.2"/>
+  </g>
+
+  <!-- Circle border -->
+  <circle cx="100" cy="100" r="92" fill="none" stroke="url(#borderG)" stroke-width="4"/>
+</svg>
